@@ -1,0 +1,73 @@
+@import '../../theme/variables';
+
+.choose-course {
+  text-align: center;
+  background-image: url('../../../assets/images/Background.jpeg');
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.choose-course-container {
+  background-color: $secondary-color;
+  min-height: 100vh;
+  width: 900px;
+}
+
+.choose-course-title-container {
+  padding-top: $font-size-150;
+  display: flex;
+  flex-direction: column;
+}
+
+.choose-course-subtitle-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: $font-size-15;
+  font-weight: 500;
+}
+
+.choose-course-courses-container {
+  padding-top: $font-size-30;
+}
+
+.choose-course-option-container {
+  border: 1px solid $primay-color;
+  color: $primay-color;
+  width: 280px;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+  border-radius: $font-size-10;
+  margin: $font-size-5;
+
+  .MuiRadio-root {
+    color: $primay-color;
+  }
+}
+
+.choose-course-option-selected {
+  background-color: $primay-color;
+  color: $white-color;
+  width: 280px;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+  border-radius: $font-size-10;
+  margin: $font-size-5;
+
+  .MuiRadio-root {
+    color: $white-color !important;
+  }
+}
+
+.choose-course-continue-btn-container {
+  text-align: center;
+  margin-top: $font-size-80;
+}
+
+.choose-course-continue-btn {
+  border-radius: $font-size-20 !important;
+  width: 280px;
+  margin-bottom: $font-size-8 !important;
+  text-transform: none !important;
+  font-weight: bold !important;
+}
