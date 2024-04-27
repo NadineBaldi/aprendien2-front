@@ -79,7 +79,7 @@ const Login = () => {
     }
 
     if (!hasErrors && emailError === "" && passwordError === "") {
-      window.location.href = "http://localhost:3000/courses";
+      window.location.href = "http://localhost:3000/chooseCourse";
     }
   };
 
