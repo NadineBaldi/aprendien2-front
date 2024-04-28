@@ -1,0 +1,137 @@
+.practice-questions {
+  margin: $font-size-70;  
+  display: flex;
+  flex-direction: column;
+}
+
+.practice-questions-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: $font-size-40;
+
+  .subtitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: $green-color;
+  }
+}
+
+.practice-questions-units-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .subtitle {
+    font-weight: bold;
+  }
+}
+
+.practice-questions-total-question-container {
+  display: flex;
+  flex-direction: row;  
+  margin-left: $font-size-20;
+  background-color: $grey-color !important;
+  padding: $font-size-5 $font-size-8;
+  border-radius: $font-size-30;
+  align-items: center;
+
+  .subtitle {
+    font-weight: 500;
+    font-size: $font-size-12;
+  }
+}
+
+.practice-questions-title-accordion-container {
+  display: flex;
+  align-items: center;  
+  width: 100%;
+
+  .question-name-text {
+    font-weight: bold;
+  }
+}
+
+.practice-questions-btn-container {
+  margin-left: auto;
+}
+
+.practice-questions-all-practice-btn {
+  background-color: $primay-color !important;  
+  color: $white-color !important;
+  border-radius: $font-size-20 !important;
+  text-transform: none !important;
+  font-size: $font-size-10 !important;
+}
+
+.practice-questions-accordion {
+  width: 100%;  
+  margin-bottom: $font-size-10;
+
+  .MuiAccordionSummary-gutters {
+    padding: 0 !important;
+  }
+}
+
+.MuiAccordion-root {
+  background-color: transparent !important;
+  box-shadow: 0 0 1px 1px $secondary-color !important;
+  border-radius: $font-size-10 !important;
+
+  .MuiAccordionSummary-content {
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+
+  .accordion-summary-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: default !important;
+  }
+
+  .edit-icon {
+    padding-left: $font-size-10;
+    color: $green-color;
+    margin-right: auto;
+    cursor: pointer !important;
+  }
+
+  .expand-icon-container {
+    cursor: pointer !important;
+  }
+
+  .Mui-expanded {
+    min-height: 0 !important;
+  }
+}
+
+.MuiAccordionSummary-expandIconWrapper {
+  color: $primay-color;
+}
+
+.MuiListItem-root {
+  border-bottom: 1px solid $quaternary-color;
+}
+
+.MuiListItemIcon-root {
+  justify-content: right;
+}
+
+.practice-questions-list-item-container {
+  .MuiAccordionDetails-root {
+    padding: 0px !important;  
+  }
+
+  .MuiListItemIcon-root {
+    min-width: 0px !important;
+    margin: $font-size-5;
+    color: $black-color;
+  }
+
+  .MuiListItemText-primary {
+    color: $black-color;
+    font-weight: 500 !important;
+    font-size: $font-size-15;
+  }
+}

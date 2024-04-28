@@ -1,0 +1,101 @@
+@import '../../theme/variables';
+@import './components/practiceQuestions/styles';
+
+.course-view {
+  text-align: center;
+  background-image: url('../../../assets/images/Background.jpeg');
+  min-height: 100vh;
+  display: flex;
+}
+
+.course-view-banner-container {
+  width: 300px;
+  background-color: $primay-color;  
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.course-view-body-container {
+  width: 800px;
+  background-color: $secondary-color;  
+  min-height: 100vh; 
+}
+
+.course-view-avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-top: $font-size-50;
+  margin-bottom: $font-size-10;
+}
+
+.university-title {
+  color: $green-color;
+  font-weight: bold !important;  
+  font-size: $font-size-20 !important;
+}
+
+.course-view-tabs-container {
+  width: 300px;
+  margin-top: $font-size-80;  
+  display: flex;
+  justify-content: center;
+
+  .MuiTab-textColorPrimary {
+    width: 280px;
+    font-weight: bold;
+    text-transform: capitalize;
+    border: solid 0.5px lightgray;
+    border-radius: $font-size-20;
+    color: $white-color !important;
+    margin-top: $font-size-10;
+    display: flex;
+    flex-direction: row;
+    height: $font-size-40 !important;
+    padding: 0 !important;
+  }
+
+  .Mui-selected {
+    width: 280px;
+    color: $white-color !important;
+    background-color: fade-out($secondary-color, 0.7);
+  }
+
+  .MuiTabs-indicator {
+    display: none !important;
+  }
+
+  .MuiSvgIcon-root {
+    padding-right: $font-size-10;
+    margin-bottom: 0 !important;
+  }
+
+  .MuiButtonBase-root {
+    min-height: auto;
+  }
+}
+
+.course-view-user-image-container {
+  display: flex;
+  justify-content: center;
+  margin-top: $font-size-120;
+  margin-bottom: $font-size-10;
+}
+
+.user-name-text {
+  color: $white-color;
+  font-size: $font-size-15 !important;  
+}
+
+.course-view-line-container {
+  background-color: $white-color; 
+  height: $font-size-1; 
+  width: 260px;
+  margin-top: $font-size-30;
+  margin-bottom: $font-size-5;
+}
+
+.MuiLink-root {
+  color: $green-color !important;  
+}
