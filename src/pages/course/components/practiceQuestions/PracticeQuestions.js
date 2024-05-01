@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // Material UI Components
 import Accordion from "@mui/material/Accordion";
@@ -20,25 +20,10 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
-// Constants
-import { courses } from "../../../../constants/courses";
-
 const PracticeQuestions = (props) => {
-  const { courseId } = props;
+  const { courseSelected } = props;
 
-  const [courseSelected, setCourseSelected] = useState({});
   const [expanded, setExpanded] = useState([]);
-
-  useEffect(() => {
-    if (courseId && courses) {
-      const selectedCourse = courses.find(
-        ({ id }) => id.toString() === courseId
-      );
-      if (selectedCourse) {
-        setCourseSelected(selectedCourse);
-      }
-    }
-  }, []);
 
   const handleAccordionClick = (unitId) => {
     if (!expanded.includes(unitId)) {
