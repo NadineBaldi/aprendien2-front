@@ -1,0 +1,71 @@
+.practice-exams {
+  margin: $font-size-70;  
+  display: flex;
+  flex-direction: column;
+}
+
+.practice-exams-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: $font-size-40;
+  
+  .subtitle {
+    font-size: $font-size-20;
+    font-weight: bold;
+    color: $green-color;
+  }
+}
+
+.practice-exams-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .practice-exams-exams-available-text-container {
+    padding: $font-size-8 0;
+  }
+
+  .exams-available-text {
+    font-size: $font-size-17;
+    font-weight: bold;
+  }
+}
+
+.practice-exams-card-info-container {
+  display: flex;
+  padding: $font-size-16 $font-size-20;
+  justify-content: space-between;  
+}
+
+.practice-exams-button-container {
+  align-content: center !important;  
+}
+
+.practice-exams-button {
+  text-transform: capitalize !important;
+  border-radius: $font-size-50 !important;  
+}
+
+.description-text {
+  font-size: $font-size-12;
+  font-weight: 500 !important;
+}
+
+.time-quantity-text {
+  font-size: $font-size-14 !important;
+}
+
+.practice-exams-card-texts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  
+}
+
+.practice-exams-card-container { 
+  margin: 0px 0px $font-size-10 0px;
+
+  .MuiPaper-root {
+    background-color: $grey-color;
+  }
+}

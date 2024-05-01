@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -14,14 +15,17 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 
 // Components
 import PracticeQuestions from "./components/practiceQuestions/PracticeQuestions";
+import PracticeExams from "./components/practiceExams/PracticeExams";
 
 // Constants
 import { userData } from "../../constants/userData";
+import { courses } from "../../constants/courses";
 
 const CourseView = () => {
   const { courseId } = useParams();
   const [userInfo, setUserInfo] = useState({});
   const [tabSelected, setTabSelected] = useState("practice-questions");
+  const [courseSelected, setCourseSelected] = useState({});
 
   const handleChange = (event, newValue) => {
     setTabSelected(newValue);
@@ -33,6 +37,17 @@ const CourseView = () => {
     if (userData) {
       const filterData = userData.find(({ id }) => id === userId);
       setUserInfo(filterData);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (courseId && courses) {
+      const selectedCourse = courses.find(
+        ({ id }) => id.toString() === courseId
+      );
+      if (selectedCourse) {
+        setCourseSelected(selectedCourse);
+      }
     }
   }, []);
 
@@ -87,7 +102,10 @@ const CourseView = () => {
       <div className="course-view-body-container">
         <div>
           {tabSelected === "practice-questions" && (
-            <PracticeQuestions courseId={courseId} />
+            <PracticeQuestions courseSelected={courseSelected} />
+          )}
+          {tabSelected === "practice-exams" && (
+            <PracticeExams courseSelected={courseSelected} />
           )}
         </div>
       </div>
