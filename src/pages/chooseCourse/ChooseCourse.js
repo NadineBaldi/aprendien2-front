@@ -12,15 +12,17 @@ import FormControl from "@mui/material/FormControl";
 import { courses } from "../../constants/courses";
 
 const ChooseCourse = () => {
-  const [courseSelected, setCourseSelected] = useState("");
+  const [courseSelected, setCourseSelected] = useState({ id: null, name: "" });
+  const { id: courseSelectedId } = courseSelected;
 
   const handleChangeCourseSelected = (event) => {
-    setCourseSelected(event.target.value);
+    const courseId = event.target.value;
+    const courseName = event.target.getAttribute("data-name");
+    setCourseSelected({ id: courseId, name: courseName });
   };
 
   const handleOnClickContinueBtn = () => {
-    // window.location.href = "http://localhost:3000/courses";
-    // TODO: reemplazar por url de pantalla de practicar preguntas cuando exista
+    window.location.href = `http://localhost:3000/course/${courseSelectedId}`;
   };
 
   return (
@@ -44,16 +46,18 @@ const ChooseCourse = () => {
             <RadioGroup
               aria-labelledby="radio-buttons-group-label"
               name="radio-buttons-group"
-              value={courseSelected}
+              value={courseSelectedId}
               onChange={handleChangeCourseSelected}
             >
-              {courses.map(({ name }) => (
+              {courses.map(({ name, id }) => (
                 <FormControlLabel
-                  value={name}
+                  key={id}
+                  value={id}
                   control={<Radio />}
                   label={name}
+                  data-name={name}
                   className={
-                    courseSelected === name
+                    courseSelectedId === id
                       ? "choose-course-option-selected"
                       : "choose-course-option-container"
                   }
