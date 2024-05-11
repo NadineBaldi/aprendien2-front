@@ -51,6 +51,10 @@ const CourseView = () => {
     }
   }, []);
 
+  const handleOnClick = () => {
+    window.location.href = `http://localhost:3000/accountData/${courseId}`;
+  };
+
   return (
     <div className="course-view">
       <div className="course-view-banner-container">
@@ -90,10 +94,14 @@ const CourseView = () => {
             sx={{ width: 60, height: 60 }}
           />
         </div>
-        <Typography classes={{ root: "user-name-text" }}>
-          {userInfo.name}
-          {userInfo.lastName}
-        </Typography>
+        <div
+          onClick={() => handleOnClick()}
+          className="course-view-user-info-container"
+        >
+          <Typography classes={{ root: "user-name-text" }}>
+            {userInfo.name} {userInfo.lastName}
+          </Typography>
+        </div>
         <div className="course-view-line-container"></div>
         <Link href="http://localhost:3000/chooseCourse">
           Cambiar de materia

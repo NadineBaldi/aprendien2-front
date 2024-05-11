@@ -4,6 +4,7 @@ const Login = lazy(() => import("../client/login"));
 const ForgetPassword = lazy(() => import("../client/forgetPassword"));
 const ChooseCourse = lazy(() => import("../client/chooseCourse"));
 const Course = lazy(() => import("../client/course"));
+const AccountData = lazy(() => import("../client/accountData"));
 
 const routes = [
   {
@@ -40,6 +41,13 @@ const routes = [
     layout: "/course",
     exact: true,
     element: <Course />,
+  },
+  {
+    path: "/accountData/:courseId",
+    name: "accountData",
+    layout: "/accountData",
+    exact: true,
+    element: <AccountData />,
   },
 ];
 
