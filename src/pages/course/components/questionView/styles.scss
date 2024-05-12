@@ -1,0 +1,99 @@
+@import '../../../../theme/variables';
+
+.question-view {
+    height: 100%;
+  &__header {
+    background-color: $tertiary-color;
+    min-height: 25%;
+  }
+
+  &__header-title {
+    padding: $font-size-80 $font-size-20 $font-size-20 $font-size-20;
+  }
+
+  &__back-button-container {
+    display: flex;
+    justify-content: right;
+    padding-right: $font-size-20;
+    padding-top: $font-size-10;
+  }
+
+  &__back-button {
+    color: $secondary-color !important;
+    text-transform: none !important;
+    font-weight: 600 !important;
+    font-size: $font-size-16 !important;
+  }
+
+  &__title {
+    font-size: $font-size-30 !important;
+    font-weight: bold !important;
+    color: $secondary-color;
+  }
+
+  &__body {
+    display: flex;
+    height: 75%;
+  }
+
+  &__body-left {
+    width: $font-size-400;
+    background-color: $secondary-color;
+  }
+
+  &__body-right {
+    width: 100%;
+
+    .MuiListItem-root {
+      border-bottom: none !important;  
+    }
+  }
+
+  &__list-container {
+    width: 100%;
+  }
+
+  &__question-title-container {
+    padding: $font-size-80 $font-size-30;
+  }
+
+  &__question-title {
+    font-size: $font-size-20 !important;
+    font-weight: 500 !important;
+    color: $tertiary-color;
+  }
+
+  &__options-list {
+    padding: $font-size-15 0;
+
+    .MuiCheckbox-root.Mui-checked {
+      color: $green-color !important;
+    }
+  }
+
+  &__send-btn-container {
+    display: flex;
+    justify-content: right !important;
+    padding-top: $font-size-60;
+    padding-right: $font-size-30;
+  }
+
+  &__send-btn {
+    border-radius: $font-size-20 !important;
+    text-transform: none !important;
+    font-weight: 600 !important;
+    background-color: $tertiary-color !important;
+  }
+
+  &__review-message-container {
+    display: flex;
+    justify-content: center;
+    margin-top: $font-size-20;
+  }
+
+  &__review-message {
+    font-size: $font-size-16 !important;
+    font-weight: 500 !important;
+    color: $tertiary-color !important;
+  }
+}

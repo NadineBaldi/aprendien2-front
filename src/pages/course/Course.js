@@ -14,8 +14,9 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 
 // Components
-import PracticeQuestions from "./components/practiceQuestions/PracticeQuestions";
-import PracticeExams from "./components/practiceExams/PracticeExams";
+import PracticeQuestions from "./components/practiceQuestionsTab/PracticeQuestions";
+import PracticeExams from "./components/practiceExamsTab/PracticeExams";
+import QuestionView from "./components/questionView/QuestionView";
 
 // Constants
 import { userData } from "../../constants/userData";
@@ -26,6 +27,8 @@ const CourseView = () => {
   const [userInfo, setUserInfo] = useState({});
   const [tabSelected, setTabSelected] = useState("practice-questions");
   const [courseSelected, setCourseSelected] = useState({});
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [selectedQuestions, setSelectedQuestions] = useState(null);
 
   const handleChange = (event, newValue) => {
     setTabSelected(newValue);
@@ -56,68 +59,83 @@ const CourseView = () => {
   };
 
   return (
-    <div className="course-view">
-      <div className="course-view-banner-container">
-        <div className="course-view-avatar-container">
-          <Avatar
-            alt="Remy Sharp"
-            src="../../../assets/images/Background.jpeg"
-            sx={{ width: 120, height: 120 }}
-          />
+    <>
+      {selectedQuestion || selectedQuestions ? (
+        <QuestionView
+          selectedQuestion={selectedQuestion}
+          setSelectedQuestion={setSelectedQuestion}
+          questions={selectedQuestions}
+          setQuestions={setSelectedQuestions}
+        />
+      ) : (
+        <div className="course-view">
+          <div className="course-view-banner-container">
+            <div className="course-view-avatar-container">
+              <Avatar
+                alt="Remy Sharp"
+                src="../../../assets/images/Background.jpeg"
+                sx={{ width: 120, height: 120 }}
+              />
+            </div>
+            <Typography classes={{ root: "university-title" }}>
+              {userInfo.university}
+            </Typography>
+            <div className="course-view-tabs-container">
+              <Tabs
+                orientation="vertical"
+                value={tabSelected}
+                onChange={handleChange}
+                aria-label="course-tabs"
+              >
+                <Tab
+                  icon={<MenuBookIcon />}
+                  label="Practicar preguntas"
+                  value="practice-questions"
+                />
+                <Tab
+                  icon={<LibraryBooksIcon />}
+                  label="Practicar exámenes"
+                  value="practice-exams"
+                />
+              </Tabs>
+            </div>
+            <div className="course-view-user-image-container">
+              <Avatar
+                alt="Remy Sharp"
+                src="../../../assets/images/Background.jpeg"
+                sx={{ width: 60, height: 60 }}
+              />
+            </div>
+            <div
+              onClick={() => handleOnClick()}
+              className="course-view-user-info-container"
+            >
+              <Typography classes={{ root: "user-name-text" }}>
+                {userInfo.name} {userInfo.lastName}
+              </Typography>
+            </div>
+            <div className="course-view-line-container"></div>
+            <Link href="http://localhost:3000/chooseCourse">
+              Cambiar de materia
+            </Link>
+          </div>
+          <div className="course-view-body-container">
+            <div>
+              {tabSelected === "practice-questions" && (
+                <PracticeQuestions
+                  courseSelected={courseSelected}
+                  setSelectedQuestion={setSelectedQuestion}
+                  setSelectedQuestions={setSelectedQuestions}
+                />
+              )}
+              {tabSelected === "practice-exams" && (
+                <PracticeExams courseSelected={courseSelected} />
+              )}
+            </div>
+          </div>
         </div>
-        <Typography classes={{ root: "university-title" }}>
-          {userInfo.university}
-        </Typography>
-        <div className="course-view-tabs-container">
-          <Tabs
-            orientation="vertical"
-            value={tabSelected}
-            onChange={handleChange}
-            aria-label="course-tabs"
-          >
-            <Tab
-              icon={<MenuBookIcon />}
-              label="Practicar preguntas"
-              value="practice-questions"
-            />
-            <Tab
-              icon={<LibraryBooksIcon />}
-              label="Practicar exámenes"
-              value="practice-exams"
-            />
-          </Tabs>
-        </div>
-        <div className="course-view-user-image-container">
-          <Avatar
-            alt="Remy Sharp"
-            src="../../../assets/images/Background.jpeg"
-            sx={{ width: 60, height: 60 }}
-          />
-        </div>
-        <div
-          onClick={() => handleOnClick()}
-          className="course-view-user-info-container"
-        >
-          <Typography classes={{ root: "user-name-text" }}>
-            {userInfo.name} {userInfo.lastName}
-          </Typography>
-        </div>
-        <div className="course-view-line-container"></div>
-        <Link href="http://localhost:3000/chooseCourse">
-          Cambiar de materia
-        </Link>
-      </div>
-      <div className="course-view-body-container">
-        <div>
-          {tabSelected === "practice-questions" && (
-            <PracticeQuestions courseSelected={courseSelected} />
-          )}
-          {tabSelected === "practice-exams" && (
-            <PracticeExams courseSelected={courseSelected} />
-          )}
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

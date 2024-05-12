@@ -21,7 +21,7 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 const PracticeQuestions = (props) => {
-  const { courseSelected } = props;
+  const { courseSelected, setSelectedQuestion, setSelectedQuestions } = props;
 
   const [expanded, setExpanded] = useState([]);
 
@@ -34,6 +34,11 @@ const PracticeQuestions = (props) => {
       const aux = [...expanded.filter((item) => item !== unitId)];
       setExpanded(aux);
     }
+  };
+
+  const handlePracticeAll = (event, questions) => {
+    event.stopPropagation();
+    setSelectedQuestions(questions);
   };
 
   return (
@@ -75,7 +80,12 @@ const PracticeQuestions = (props) => {
                         )}
                       </div>
                       <div className="practice-questions-btn-container">
-                        <Button className="practice-questions-all-practice-btn">
+                        <Button
+                          className="practice-questions-all-practice-btn"
+                          onClick={(event) =>
+                            handlePracticeAll(event, questions)
+                          }
+                        >
                           Practicar todas
                         </Button>
                       </div>
@@ -84,13 +94,19 @@ const PracticeQuestions = (props) => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <List>
-                    {questions.map((question) => (
+                    {questions.map(({ id, title, ...other }) => (
                       <div className="practice-questions-list-item-container">
                         <ListItem
                           disablePadding
-                          key={question}
+                          key={id}
                           secondaryAction={
-                            <IconButton edge="end" aria-label="play">
+                            <IconButton
+                              edge="end"
+                              aria-label="play"
+                              onClick={() =>
+                                setSelectedQuestion({ id, title, ...other })
+                              }
+                            >
                               <PlayCircleIcon fontSize="small" color="green" />
                             </IconButton>
                           }
@@ -99,7 +115,7 @@ const PracticeQuestions = (props) => {
                             <ListItemIcon>
                               <LibraryBooksIcon fontSize="small" />
                             </ListItemIcon>
-                            <ListItemText primary={question} />
+                            <ListItemText primary={title} />
                           </ListItemButton>
                         </ListItem>
                       </div>

@@ -133,5 +133,8 @@
     color: $black-color;
     font-weight: 500 !important;
     font-size: $font-size-15;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
   }
 }
