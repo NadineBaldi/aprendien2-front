@@ -1,7 +1,8 @@
 @import '../../../../theme/variables';
 
 .question-view {
-    height: 100%;
+  height: 100%;
+  
   &__header {
     background-color: $tertiary-color;
     min-height: 25%;
