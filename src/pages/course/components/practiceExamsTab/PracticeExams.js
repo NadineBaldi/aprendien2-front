@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import { exams } from "../../../../constants/exams";
 
 const PracticeExams = (props) => {
-  const { courseSelected } = props;
+  const { courseSelected, setIsAnExam, setSelectedQuestions } = props;
 
   const handleTitle = (timeLimit, questions) => {
     return (
@@ -19,6 +19,11 @@ const PracticeExams = (props) => {
           : `SIN LÍMITE DE TIEMPO. ${questions.length} PREGUNTAS.`}
       </Typography>
     );
+  };
+
+  const handleOnClickContinueBtn = (questions) => {
+    setIsAnExam(true);
+    setSelectedQuestions(questions);
   };
 
   return (
@@ -48,7 +53,11 @@ const PracticeExams = (props) => {
                   </Typography>
                 </div>
                 <div className="practice-exams-button-container">
-                  <Button variant="contained" className="practice-exams-button">
+                  <Button
+                    variant="contained"
+                    className="practice-exams-button"
+                    onClick={() => handleOnClickContinueBtn(questions)}
+                  >
                     Comenzar
                   </Button>
                 </div>

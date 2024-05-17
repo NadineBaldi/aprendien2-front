@@ -1,0 +1,99 @@
+@import '../../../../theme/variables';
+
+.grades-view {
+  height: 100%;
+  
+  &__header {
+    background-color: $tertiary-color;
+    min-height: 25%;
+  }
+
+  &__header-title {
+    padding: $font-size-80 $font-size-20 $font-size-20 $font-size-20;
+  }
+
+  &__back-button-container {
+    display: flex;
+    justify-content: right;
+    padding-right: $font-size-20;
+    padding-top: $font-size-10;
+  }
+
+  &__back-button {
+    color: $secondary-color !important;
+    text-transform: none !important;
+    font-weight: 600 !important;
+    font-size: $font-size-16 !important;
+  }
+
+  &__title {
+    font-size: $font-size-30 !important;
+    font-weight: bold !important;
+    color: $secondary-color;
+  }
+
+  &__body {
+    display: flex;
+    height: 75%;
+    flex-direction: column;
+  }
+
+  &__text-container {
+    margin-top: $font-size-80;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__text {
+    font-size: $font-size-20 !important;
+    font-weight: 500 !important;
+  }
+
+  &__congrats-text {
+    font-size: $font-size-20 !important;
+    font-weight: 500 !important;
+    color: $green-color !important;
+    padding-right: $font-size-5;
+  }
+
+  &__congrats-text-container {
+    display: flex;
+  }
+
+  &__grade-container {
+    margin-top: $font-size-20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .MuiCircularProgress-root {
+      width: $font-size-100 !important;
+      height: $font-size-100 !important;
+    }
+
+    .MuiTypography-root {
+      font-weight: 500 !important;
+      font-size: $font-size-20 !important;  
+    }
+  }
+
+  &__feedback-text-container {
+    margin-top: $font-size-80;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__feedback-text {
+    font-size: $font-size-15 !important;
+    font-weight: 500 !important;
+  }
+
+  &__feedback-icons-container {
+    margin-top: $font-size-10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

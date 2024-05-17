@@ -14,8 +14,14 @@ import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const QuestionView = (props) => {
-  const { selectedQuestion, setSelectedQuestion, questions, setQuestions } =
-    props;
+  const {
+    selectedQuestion,
+    setSelectedQuestion,
+    questions,
+    setQuestions,
+    isAnExam,
+    setIsFinishedExam,
+  } = props;
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const currentQuestion = questions
@@ -33,6 +39,52 @@ const QuestionView = (props) => {
         return [...prevSelectedOptions, id];
       }
     });
+  };
+
+  const handleShowBtn = () => {
+    if (
+      (reviewMessage &&
+        questions &&
+        currentQuestionIndex < questions.length - 1) ||
+      (isAnExam && questions && currentQuestionIndex < questions.length - 1)
+    ) {
+      return (
+        <Button
+          variant="contained"
+          className="question-view__send-btn"
+          onClick={handleNextQuestion}
+          disabled={
+            selectedQuestion || currentQuestionIndex > questions.length - 1
+          }
+        >
+          Siguiente pregunta
+        </Button>
+      );
+    } else if (
+      isAnExam &&
+      questions &&
+      currentQuestionIndex === questions.length - 1
+    ) {
+      return (
+        <Button
+          variant="contained"
+          className="question-view__send-btn"
+          onClick={handleOnClickFinishExam}
+        >
+          Finalizar exámen
+        </Button>
+      );
+    } else {
+      return (
+        <Button
+          variant="contained"
+          className="question-view__send-btn"
+          onClick={handleSendAnswer}
+        >
+          Enviar respuesta
+        </Button>
+      );
+    }
   };
 
   const handleNextQuestion = () => {
@@ -62,6 +114,11 @@ const QuestionView = (props) => {
     setQuestions(null);
   };
 
+  const handleOnClickFinishExam = () => {
+    setIsFinishedExam(true);
+    setQuestions(null);
+  };
+
   return (
     <div className="question-view">
       {currentQuestion && (
@@ -78,7 +135,9 @@ const QuestionView = (props) => {
             </div>
             <div className="question-view__header-title">
               <Typography classes={{ root: "question-view__title" }}>
-                Practicando preguntas...
+                {isAnExam
+                  ? "Practicando exámenes..."
+                  : "Practicando preguntas..."}
               </Typography>
             </div>
           </div>
@@ -117,29 +176,7 @@ const QuestionView = (props) => {
                 </List>
               </div>
               <div className="question-view__send-btn-container">
-                {reviewMessage &&
-                questions &&
-                currentQuestionIndex < questions.length - 1 ? (
-                  <Button
-                    variant="contained"
-                    className="question-view__send-btn"
-                    onClick={handleNextQuestion}
-                    disabled={
-                      selectedQuestion ||
-                      currentQuestionIndex > questions.length - 1
-                    }
-                  >
-                    Siguiente pregunta
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    className="question-view__send-btn"
-                    onClick={handleSendAnswer}
-                  >
-                    Enviar respuesta
-                  </Button>
-                )}
+                {handleShowBtn()}
               </div>
               <div className="question-view__review-message-container">
                 {reviewMessage !== "" && (
