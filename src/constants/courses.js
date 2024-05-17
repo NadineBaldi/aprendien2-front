@@ -1,42 +1,381 @@
 const courses = [
   {
     id: 1,
-    name: "Física I",
+    name: "Redes de información",
     status: "Pendiente",
     units: [
       {
         id: 11,
-        name: "Unidad 1: MRU",
+        name: "Unidad 1: Fragmentación",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
+          {
+            id: 1,
+            title:
+              "Marcar la/s afirmación/es correcta/s respecto a la fragmentación.",
+            options: [
+              {
+                id: 11,
+                title:
+                  "El total de bytes transmitidos en la red aumenta cuando los datagramas se fragmentan.",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Todas las opciones son incorrectas.",
+                correct: false,
+              },
+              {
+                id: 13,
+                title:
+                  "Si un router recibe un datagrama y genera 3 fragmentos con offset 0, 100 y 200, existe al menos un escenario donde el destinatario recibe un fragmento del mismo datagrama con offset = 150.",
+                correct: true,
+              },
+              {
+                id: 14,
+                title:
+                  "El retraso de un fragmento en la red puede provocar la pérdida del datagrama completo.",
+                correct: true,
+              },
+              {
+                id: 15,
+                title:
+                  "El encabezado de un fragmento nunca puede tener un tamaño mayor a 20 bytes.",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title:
+              "Marque las afirmaciones correctas referentes al mecanismo de control de congestión llamado señalización explícita. Seleccione una o más de una.",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: "Título pregunta 4",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: true,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 5,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
         ],
       },
       {
         id: 12,
-        name: "Unidad 2: MRUA",
+        name: "Unidad 2: Direccionamiento IP",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
         ],
       },
       {
         id: 13,
-        name: "Unidad 3: Óptica",
+        name: "Unidad 3: MPLS",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
-          "Título pregunta 4",
-          "Título pregunta 5",
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
         ],
       },
       {
         id: 14,
-        name: "Unidad 4: Leyes de Newton",
-        questions: ["Título pregunta 1", "Título pregunta 2"],
+        name: "Unidad 4: OSPF",
+        questions: [
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+        ],
       },
     ],
   },
@@ -49,23 +388,226 @@ const courses = [
         id: 21,
         name: "Unidad 1: Ley de Gauss",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
         ],
       },
       {
         id: 22,
         name: "Unidad 2: Campo Eléctrico",
-        questions: ["Título pregunta 1", "Título pregunta 2"],
+        questions: [
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+        ],
       },
       {
         id: 23,
         name: "Unidad 3: Capacitores",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
         ],
       },
     ],
@@ -79,50 +621,1024 @@ const courses = [
         id: 31,
         name: "Unidad 1",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: "Título pregunta 4",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: true,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 5,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 6,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 7,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
         ],
       },
       {
         id: 32,
         name: "Unidad 2",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: "Título pregunta 4",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: true,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 5,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 6,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
         ],
       },
       {
         id: 33,
         name: "Unidad 3",
-        questions: ["Título pregunta 1", "Título pregunta 2"],
+        questions: [
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: "Título pregunta 4",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: true,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+        ],
       },
       {
         id: 34,
         name: "Unidad 4",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: "Título pregunta 4",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: true,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 5,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 6,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 7,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
         ],
       },
       {
         id: 35,
         name: "Unidad 5",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: "Título pregunta 4",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: true,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 5,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 6,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 7,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
         ],
       },
       {
         id: 36,
         name: "Unidad 6",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: "Título pregunta 4",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: true,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 5,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 6,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 7,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
         ],
       },
     ],
@@ -136,26 +1652,435 @@ const courses = [
         id: 41,
         name: "Unidad 1",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
-          "Título pregunta 4",
-          "Título pregunta 5",
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: "Título pregunta 4",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: true,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 5,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 6,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 7,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
         ],
       },
       {
         id: 42,
         name: "Unidad 2",
         questions: [
-          "Título pregunta 1",
-          "Título pregunta 2",
-          "Título pregunta 3",
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
         ],
       },
       {
         id: 43,
         name: "Unidad 3",
-        questions: ["Título pregunta 1", "Título pregunta 2"],
+        questions: [
+          {
+            id: 1,
+            title: "Título pregunta 1",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: true,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            title: "Título pregunta 2",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            title: "Título pregunta 3",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: true,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: "Título pregunta 4",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: true,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: false,
+              },
+            ],
+          },
+          {
+            id: 5,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 6,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+          {
+            id: 7,
+            title: "Título pregunta 5",
+            options: [
+              {
+                id: 11,
+                title: "Respuesta 1",
+                correct: false,
+              },
+              {
+                id: 12,
+                title: "Respuesta 2",
+                correct: false,
+              },
+              {
+                id: 13,
+                title: "Respuesta 3",
+                correct: false,
+              },
+              {
+                id: 14,
+                title: "Respuesta 4",
+                correct: true,
+              },
+            ],
+          },
+        ],
       },
     ],
   },

@@ -1,6 +1,7 @@
 @import '../../theme/variables';
-@import './components/practiceQuestions/styles';
-@import './components/practiceExams/styles';
+@import './components/practiceQuestionsTab/styles';
+@import './components/practiceExamsTab/styles';
+@import './components/questionView/styles';
 
 .course-view {
   text-align: center;
