@@ -13,6 +13,8 @@ const CITY = "city";
 const DOMICILE = "domicile";
 const UNIVERSITY = "university";
 const PHONE = "phone";
+const NEW_PASSWORD = "newPassword";
+const NEW_PASSWORD_DUPLICATED = "newPasswordDuplicated";
 
 // error messages
 const INVALID_EMAIL_FORMAT =
@@ -31,6 +33,7 @@ const INVALID_PHONE_NUMBER_FORMAT =
   "El número de celular debe contener al menos 5 caracteres";
 const NOT_CORRECT_OPTION_SELECTED =
   "Cuidado! Al menos una opción debe ser correcta";
+const PASSWORDS_NOT_THE_SAME = "Las nuevas contraseñas deben coincidir";
 
 // status
 const ARCHIVED_COURSE_STATUS = "Archivado";
@@ -64,4 +67,7 @@ module.exports = {
   ARCHIVED_COURSE_STATUS,
   PUBLISHED_COURSE_STATUS,
   INVALID_PHONE_NUMBER_FORMAT,
+  NEW_PASSWORD,
+  NEW_PASSWORD_DUPLICATED,
+  PASSWORDS_NOT_THE_SAME,
 };

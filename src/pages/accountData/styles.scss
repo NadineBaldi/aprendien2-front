@@ -9,7 +9,7 @@
 
 .accountData-container {
   background-color: $secondary-color;
-  min-height: 100vh;
+  min-height: 575px;
   width: 800px;
 }
 
@@ -104,7 +104,7 @@
 }
 
 .accountData-profile-container {
-  margin-top: $font-size-40;
+  margin-top: $font-size-30;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -123,7 +123,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: $font-size-50;
+  margin-top: $font-size-40;
 }
 
 .accountData-text-field-container {
