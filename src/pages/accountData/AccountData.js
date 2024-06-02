@@ -41,6 +41,9 @@ import {
   CITY,
   DOMICILE,
   UNIVERSITY,
+  NEW_PASSWORD,
+  NEW_PASSWORD_DUPLICATED,
+  PASSWORDS_NOT_THE_SAME,
 } from "../../constants/util";
 
 const AccountData = () => {
@@ -57,6 +60,8 @@ const AccountData = () => {
     city: false,
     domicile: false,
     university: false,
+    newPassword: false,
+    newPasswordDuplicated: false,
   });
   const [newUserData, setNewUserData] = useState({});
   const [errorMessages, setErrorMessages] = useState({
@@ -70,6 +75,8 @@ const AccountData = () => {
     city: "",
     domicile: "",
     university: "",
+    newPassword: "",
+    newPasswordDuplicated: "",
   });
   const [courseName, setCourseName] = useState("");
 
@@ -170,12 +177,25 @@ const AccountData = () => {
     return "";
   };
 
-  const getPasswordErrorMessage = () => {
-    if (newUserData[PASSWORD] === "") {
+  const getPasswordErrorMessage = (key) => {
+    if (!newUserData[`${key}`]) {
       return ERROR_EMPTY_FIELDS;
-    } else if (newUserData[PASSWORD].length <= 7) {
+    } else if (newUserData[`${key}`].length <= 7) {
       return INVALID_PASSWORD_FORMAT;
     }
+    return "";
+  };
+
+  const getNewPasswordErrorMessage = (key) => {
+    const errorMessage = getPasswordErrorMessage(key);
+    if (errorMessage) {
+      return errorMessage;
+    } else if (
+      newUserData[NEW_PASSWORD] !== newUserData[NEW_PASSWORD_DUPLICATED]
+    ) {
+      return PASSWORDS_NOT_THE_SAME;
+    }
+
     return "";
   };
 
@@ -183,7 +203,11 @@ const AccountData = () => {
     let hasErrors = false;
     const newErrorMessages = {
       email: getEmailErrorMessage(),
-      password: getPasswordErrorMessage(),
+      password: getPasswordErrorMessage(PASSWORD),
+      newPassword: getNewPasswordErrorMessage(NEW_PASSWORD),
+      newPasswordDuplicated: getNewPasswordErrorMessage(
+        NEW_PASSWORD_DUPLICATED
+      ),
     };
 
     for (const fieldName in newUserData) {
@@ -191,8 +215,10 @@ const AccountData = () => {
         fieldName !== "id" &&
         fieldName !== EMAIL &&
         fieldName !== PASSWORD &&
+        fieldName !== NEW_PASSWORD &&
+        fieldName !== NEW_PASSWORD_DUPLICATED &&
         newUserData[UNIVERSITY] &&
-        newUserData[fieldName].trim() === ""
+        !newUserData[fieldName]
       ) {
         newErrorMessages[fieldName] = ERROR_EMPTY_FIELDS;
         hasErrors = true;
@@ -208,7 +234,9 @@ const AccountData = () => {
     if (
       !hasErrors &&
       newErrorMessages.email === "" &&
-      newErrorMessages.password === ""
+      newErrorMessages.password === "" &&
+      newErrorMessages.newPassword === "" &&
+      newErrorMessages.newPasswordDuplicated === ""
     ) {
       setData(newUserData);
       handleEditIconClick(key, false);
@@ -245,7 +273,7 @@ const AccountData = () => {
               <Avatar
                 alt="Remy Sharp"
                 src="../../../assets/images/Background.jpeg"
-                sx={{ width: 110, height: 110 }}
+                sx={{ width: 100, height: 100 }}
               />
             </div>
             <Typography classes={{ root: "title-text" }}>Mi perfil</Typography>
@@ -279,7 +307,9 @@ const AccountData = () => {
               <TextField
                 id={PASSWORD}
                 value={newUserData.password}
-                label="Contraseña"
+                label={
+                  editData[`${PASSWORD}`] ? "Contraseña anterior" : "Contraseña"
+                }
                 placeholder="********"
                 color="primary"
                 type={PASSWORD}
@@ -291,7 +321,17 @@ const AccountData = () => {
                     </InputAdornment>
                   ),
                   className: "profile-text-field",
-                  endAdornment: handleEndAdornment(PASSWORD),
+                  endAdornment: !editData[`${PASSWORD}`] && (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="edit field"
+                        onClick={() => handleEditIconClick(PASSWORD, true)}
+                        edge="end"
+                      >
+                        <EditIcon color="green" />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
                   readOnly: editData.password ? false : true,
                 }}
                 style={{ marginTop: 11 }}
@@ -300,6 +340,78 @@ const AccountData = () => {
                 helperText={errorMessages.password}
               />
             </div>
+            {editData[`${PASSWORD}`] && (
+              <>
+                <div className="accountData-text-field-container">
+                  <TextField
+                    id={NEW_PASSWORD}
+                    value={newUserData[NEW_PASSWORD]}
+                    label="Nueva contraseña"
+                    placeholder="********"
+                    color="primary"
+                    type={PASSWORD}
+                    focused
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockIcon color="primary" />
+                        </InputAdornment>
+                      ),
+                      className: "profile-text-field",
+                    }}
+                    style={{ marginTop: 11 }}
+                    onChange={(event) =>
+                      handleChangeNewUserData(event, NEW_PASSWORD)
+                    }
+                    error={!!errorMessages.newPassword}
+                    helperText={errorMessages.newPassword}
+                  />
+                </div>
+                <div className="accountData-text-field-container">
+                  <TextField
+                    id={NEW_PASSWORD_DUPLICATED}
+                    value={newUserData.newPasswordDuplicated}
+                    label="Repite nueva contraseña"
+                    placeholder="********"
+                    color="primary"
+                    type={PASSWORD}
+                    focused
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockIcon color="primary" />
+                        </InputAdornment>
+                      ),
+                      className: "profile-text-field",
+                      endAdornment: editData[`${PASSWORD}`] && (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="save changes"
+                            onClick={() => handleApplyChange(PASSWORD)}
+                            edge="end"
+                          >
+                            <CheckIcon color="green" />
+                          </IconButton>
+                          <IconButton
+                            aria-label="close edit option"
+                            onClick={() => handleCancelChange(PASSWORD)}
+                            edge="end"
+                          >
+                            <CloseIcon color="green" />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                    style={{ marginTop: 11 }}
+                    onChange={(event) =>
+                      handleChangeNewUserData(event, NEW_PASSWORD_DUPLICATED)
+                    }
+                    error={!!errorMessages.newPasswordDuplicated}
+                    helperText={errorMessages.newPasswordDuplicated}
+                  />
+                </div>
+              </>
+            )}
           </div>
           <div className="accountData-course-info-container">
             <Typography classes={{ root: "subtitle-text" }}>Materia</Typography>
