@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+//hook
+import useFetchCommon from "../../hooks";
 
 // Material UI Components
 import Typography from "@mui/material/Typography";
@@ -15,13 +18,14 @@ import Select from "@mui/material/Select";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Constants
-import { provinces } from "../../../../constants/signUp";
 import {
   DNI,
   PHONE,
   ERROR_EMPTY_FIELDS,
   INVALID_DNI_FORMAT,
   INVALID_PHONE_NUMBER_FORMAT,
+  PROVINCE_SELECTED,
+  CITY,
 } from "../../../../constants/util";
 
 const SignUpStep2 = (props) => {
@@ -33,7 +37,15 @@ const SignUpStep2 = (props) => {
     errorMessages,
     setErrorMessages,
     handleFieldChange,
+    provinces,
   } = props;
+
+  const { loadCities, cities } = useFetchCommon();
+
+  useEffect(() => {
+    if (values[PROVINCE_SELECTED]) loadCities(values[PROVINCE_SELECTED]);
+  }, [values[PROVINCE_SELECTED]]);
+
 
   const handleOnChangeSelect = (event, fieldName) => {
     setValues({
@@ -66,7 +78,7 @@ const SignUpStep2 = (props) => {
 
     for (const fieldName in values) {
       if (
-        values[fieldName].trim() === "" &&
+        !values[fieldName] &&
         fieldName !== "universityProvince" &&
         fieldName !== "universityCity" &&
         fieldName !== "registrationNumber" &&
@@ -82,6 +94,35 @@ const SignUpStep2 = (props) => {
     if (!hasErrors && newErrorMessages.dni === "") {
       setCurrentStep(3);
     }
+  };
+
+  
+  const handleCityOptions = () => {
+    if (cities.length) {
+      return cities.map(({ id, name }) => (
+        <MenuItem
+          key={id}
+          value={id}
+          classes={{
+            root: "menu-options",
+          }}
+        >
+          {name}
+        </MenuItem>
+      ));
+    }
+
+    return (
+      <MenuItem
+        value={0}
+        disabled
+        classes={{
+          root: "menu-options",
+        }}
+      >
+        No hay ciudades disponibles
+      </MenuItem>
+    );
   };
 
   return (
@@ -187,6 +228,7 @@ const SignUpStep2 = (props) => {
               id="provincia"
               label="Seleccionar provincia"
               color="primary"
+              value={values[PROVINCE_SELECTED]}
               onChange={(event) =>
                 handleOnChangeSelect(event.target.value, "provinceSelected")
               }
@@ -194,15 +236,15 @@ const SignUpStep2 = (props) => {
                 root: "option-select",
               }}
             >
-              {provinces.map((prov) => (
+              {provinces.map(({ id, name }) => (
                 <MenuItem
-                  key={prov}
-                  value={prov}
+                  key={id}
+                  value={id}
                   classes={{
                     root: "menu-options",
                   }}
                 >
-                  {prov}
+                  {name}
                 </MenuItem>
               ))}
             </Select>
@@ -211,22 +253,33 @@ const SignUpStep2 = (props) => {
             ) : null}
           </FormControl>
         </div>
-        <div className="item-container">
-          <TextField
-            id="ciudad"
-            value={values.city}
-            label="Ciudad"
+        <div className="item-container-form-control">
+          <FormControl
             color="primary"
             focused
-            InputProps={{
-              className: "text-field",
-            }}
-            style={{ marginTop: 11 }}
             fullWidth
-            onChange={(event) => handleFieldChange("city", event.target.value)}
             error={!!errorMessages.city}
-            helperText={errorMessages.city}
-          />
+          >
+            <InputLabel>Seleccionar ciudad</InputLabel>
+            <Select
+              id="city"
+              label="Seleccionar ciudad"
+              color="primary"
+              inputProps={{ disabled: !values.provinceSelected }}
+              value={values[CITY]}
+              onChange={(event) =>
+                handleOnChangeSelect(event.target.value, "city")
+              }
+              classes={{
+                root: "option-select",
+              }}
+            >
+              {values?.provinceSelected ? handleCityOptions() : null}
+            </Select>
+            {!!errorMessages.city ? (
+              <FormHelperText>{errorMessages.city}</FormHelperText>
+            ) : null}
+          </FormControl>
         </div>
         <div className="item-container">
           <TextField

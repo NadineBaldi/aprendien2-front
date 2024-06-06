@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+//hook
+import useFetchCommon from "./hooks";
+
 // Material UI Components
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -24,7 +27,6 @@ import LockIcon from "@mui/icons-material/Lock";
 
 // Constants
 import { courses } from "../../constants/courses";
-import { universities, provinces } from "../../constants/signUp";
 import { userData } from "../../constants/userData";
 import {
   DNI,
@@ -82,7 +84,26 @@ const AccountData = () => {
 
   const userId = 1;
 
+  const {
+    provinces,
+    cities,
+    universityData,
+    loadProvinces,
+    loadCities,
+    getUniversityInfoById,
+  } = useFetchCommon();
+
   useEffect(() => {
+    if (newUserData[PROVINCE_SELECTED])
+      loadCities(newUserData[PROVINCE_SELECTED]);
+  }, [newUserData[PROVINCE_SELECTED]]);
+
+  useEffect(() => {
+    if (newUserData[UNIVERSITY]) getUniversityInfoById(newUserData[UNIVERSITY]);
+  }, [newUserData[UNIVERSITY]]);
+
+  useEffect(() => {
+    loadProvinces();
     if (userData) {
       const filterData = userData.find(({ id }) => id === userId);
       setData(filterData);
@@ -547,40 +568,56 @@ const AccountData = () => {
                         root: "option-select",
                       }}
                     >
-                      {provinces.map((prov) => (
-                        <MenuItem
-                          key={prov}
-                          value={prov}
-                          classes={{
-                            root: "menu-options",
-                          }}
-                        >
-                          {prov}
-                        </MenuItem>
-                      ))}
+                    {provinces.map(({ id, name }) => (
+                      <MenuItem
+                        key={id}
+                        value={id}
+                        classes={{
+                          root: "menu-options",
+                        }}
+                      >
+                        {name}
+                      </MenuItem>
+                    ))}
                     </Select>
                   </FormControl>
                 )}
               </div>
-              <div className="accountData-item-container">
-                <TextField
-                  id={CITY}
-                  value={newUserData.city}
-                  label="Ciudad"
+              <div className="accountData-item-container-form-control">
+              {data.provinceSelected && (
+                <FormControl
                   color="primary"
                   focused
-                  InputProps={{
-                    className: "text-field",
-                    endAdornment: handleEndAdornment(CITY),
-                    readOnly: editData.city ? false : true,
-                  }}
-                  style={{ marginTop: 11 }}
                   fullWidth
-                  onChange={(event) => handleChangeNewUserData(event, CITY)}
                   error={!!errorMessages.city}
-                  helperText={errorMessages.city}
-                />
-              </div>
+                >
+                  <InputLabel>Seleccionar ciudad</InputLabel>
+                  <Select
+                    id={CITY}
+                    label="Seleccionar ciudad"
+                    color="primary"
+                    onChange={(event) => handleChangeNewUserData(event, CITY)}
+                    value={newUserData.city}
+                    endAdornment={handleEndAdornment(CITY)}
+                    classes={{
+                      root: "option-select",
+                    }}
+                  >
+                    {cities.map(({ id, name }) => (
+                      <MenuItem
+                        key={id}
+                        value={id}
+                        classes={{
+                          root: "menu-options",
+                        }}
+                      >
+                        {name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
+            </div>
               <div className="accountData-item-container">
                 <TextField
                   id={DOMICILE}
@@ -618,58 +655,20 @@ const AccountData = () => {
               </div>
             </div>
             <div className="accountData-uni-container">
-              {data.provinceSelected && (
-                <FormControl
-                  color="primary"
-                  focused
-                  fullWidth
-                  error={!!errorMessages.university}
-                >
-                  <InputLabel size="small">Seleccionar universidad</InputLabel>
-                  <Select
-                    id={UNIVERSITY}
-                    label="Seleccionar universidad"
-                    placeholder="Seleccionar universidad"
-                    color="primary"
-                    disabled={
-                      editData.university && !editData.provinceSelected
-                        ? false
-                        : true
-                    }
-                    endAdornment={handleEndAdornment(UNIVERSITY)}
-                    classes={{
-                      root: "option-select",
-                    }}
-                    value={newUserData.university}
-                    onChange={(event) =>
-                      handleChangeNewUserData(event, UNIVERSITY)
-                    }
-                  >
-                    {universities
-                      .filter(
-                        ({ province }) =>
-                          province === newUserData.provinceSelected
-                      )
-                      .map(({ universitiesList }) =>
-                        universitiesList.map((university) => (
-                          <MenuItem
-                            key={university}
-                            value={university}
-                            classes={{
-                              root: "menu-options",
-                            }}
-                          >
-                            {university}
-                          </MenuItem>
-                        ))
-                      )}
-                  </Select>
-                  {!!errorMessages.university ? (
-                    <FormHelperText>{errorMessages.university}</FormHelperText>
-                  ) : null}
-                </FormControl>
-              )}
-            </div>
+            <TextField
+              id={UNIVERSITY}
+              value={universityData.name}
+              label="Universidad"
+              color="primary"
+              focused
+              InputProps={{
+                className: "text-field",
+                readOnly: true,
+              }}
+              style={{ marginTop: 11 }}
+              fullWidth
+            />
+          </div>
           </div>
         </div>
       </div>

@@ -15,6 +15,8 @@ const UNIVERSITY = "university";
 const PHONE = "phone";
 const NEW_PASSWORD = "newPassword";
 const NEW_PASSWORD_DUPLICATED = "newPasswordDuplicated";
+const UNIVERSITY_PROVINCE = "universityProvince";
+const UNIVERSITY_CITY = "universityCity";
 
 // error messages
 const INVALID_EMAIL_FORMAT =
@@ -70,4 +72,6 @@ module.exports = {
   NEW_PASSWORD,
   NEW_PASSWORD_DUPLICATED,
   PASSWORDS_NOT_THE_SAME,
+  UNIVERSITY_PROVINCE,
+  UNIVERSITY_CITY,
 };
