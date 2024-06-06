@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+//hook
+import useFetchCommon from "../../hooks";
 
 // Material UI Components
 import Button from "@mui/material/Button";
@@ -15,11 +18,13 @@ import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Constants
-import { universities, provinces } from "../../../../constants/signUp";
 import {
   REGISTRATION_NUMBER,
   ERROR_EMPTY_FIELDS,
   INVALID_REGISTRATION_NUMBER_FORMAT,
+  UNIVERSITY_PROVINCE,
+  UNIVERSITY_CITY,
+  UNIVERSITY,
 } from "../../../../constants/util";
 
 const SignUpStep3 = (props) => {
@@ -31,23 +36,47 @@ const SignUpStep3 = (props) => {
     errorMessages,
     setErrorMessages,
     handleFieldChange,
+    provinces,
   } = props;
 
+  const { cities, loadCities, universities, loadUniversities } =
+  useFetchCommon();
+
+  useEffect(() => {
+    console.log(values[UNIVERSITY_PROVINCE]);
+    if (values[UNIVERSITY_PROVINCE]) loadCities(values[UNIVERSITY_PROVINCE]);
+  }, [values[UNIVERSITY_PROVINCE]]);
+
+  useEffect(() => {
+    if (values[UNIVERSITY_CITY]) loadUniversities(values[UNIVERSITY_CITY]);
+  }, [values[UNIVERSITY_CITY]]);
+
   const handleUniversityOptions = () => {
-    const universitiesFiltered = universities.find(
-      ({ province }) => province === values?.universityProvince
-    );
-    return universitiesFiltered.universitiesList.map((uni) => (
+    if (universities.length) {
+      return universities.map(({ id, name }) => (
+        <MenuItem
+          key={id}
+          value={id}
+          classes={{
+            root: "menu-options",
+          }}
+        >
+          {name}
+        </MenuItem>
+      ));
+    }
+
+    return (
       <MenuItem
-        key={uni}
-        value={uni}
+        value={0}
+        disabled
         classes={{
           root: "menu-options",
         }}
       >
-        {uni}
+        No hay universidades disponibles
       </MenuItem>
-    ));
+    );
   };
 
   const handleOnChangeSelect = (event, fieldName) => {
@@ -75,7 +104,7 @@ const SignUpStep3 = (props) => {
     }
 
     for (const fieldName in values) {
-      if (values[fieldName].trim() === "") {
+      if (!values[fieldName]) {
         newErrorMessages[fieldName] = ERROR_EMPTY_FIELDS;
         hasErrors = true;
       }
@@ -86,6 +115,35 @@ const SignUpStep3 = (props) => {
     if (!hasErrors && newErrorMessages.registrationNumber === "") {
       window.location.href = "http://localhost:3000/login";
     }
+  };
+
+
+  const handleCityOptions = () => {
+    if (cities.length) {
+      return cities.map(({ id, name }) => (
+        <MenuItem
+          key={id}
+          value={id}
+          classes={{
+            root: "menu-options",
+          }}
+        >
+          {name}
+        </MenuItem>
+      ));
+    }
+
+    return (
+      <MenuItem
+        value={0}
+        disabled
+        classes={{
+          root: "menu-options",
+        }}
+      >
+        No hay ciudades disponibles
+      </MenuItem>
+    );
   };
 
   return (
@@ -117,6 +175,7 @@ const SignUpStep3 = (props) => {
               id="universityProvince"
               label="Seleccionar provincia"
               color="primary"
+              value={values[UNIVERSITY_PROVINCE]}
               onChange={(event) =>
                 handleOnChangeSelect(event.target.value, "universityProvince")
               }
@@ -124,15 +183,15 @@ const SignUpStep3 = (props) => {
                 root: "option-select",
               }}
             >
-              {provinces.map((prov) => (
+              {provinces.map(({ id, name }) => (
                 <MenuItem
-                  key={prov}
-                  value={prov}
+                  key={id}
+                  value={id}
                   classes={{
                     root: "menu-options",
                   }}
                 >
-                  {prov}
+                  {name}
                 </MenuItem>
               ))}
             </Select>
@@ -143,24 +202,33 @@ const SignUpStep3 = (props) => {
             ) : null}
           </FormControl>
         </div>
-        <div className="item-container">
-          <TextField
-            id="universityCity"
-            value={values.universityCity}
-            label="Ciudad"
+        <div className="item-container-form-control">
+          <FormControl
             color="primary"
             focused
-            InputProps={{
-              className: "text-field",
-            }}
-            style={{ marginTop: 11 }}
             fullWidth
-            onChange={(event) =>
-              handleFieldChange("universityCity", event.target.value)
-            }
             error={!!errorMessages.universityCity}
-            helperText={errorMessages.universityCity}
-          />
+          >
+            <InputLabel>Seleccionar ciudad</InputLabel>
+            <Select
+              id="universityCity"
+              label="Seleccionar ciudad"
+              color="primary"
+              inputProps={{ disabled: !values.universityProvince }}
+              value={values[UNIVERSITY_CITY]}
+              onChange={(event) =>
+                handleOnChangeSelect(event.target.value, "universityCity")
+              }
+              classes={{
+                root: "option-select",
+              }}
+            >
+              {values?.universityProvince ? handleCityOptions() : null}
+            </Select>
+            {!!errorMessages.universityCity ? (
+              <FormHelperText>{errorMessages.universityCity}</FormHelperText>
+            ) : null}
+          </FormControl>
         </div>
         <div className="item-container">
           <FormControl
@@ -178,6 +246,7 @@ const SignUpStep3 = (props) => {
               classes={{
                 root: "option-select",
               }}
+              value={values[UNIVERSITY]}
               onChange={(event) =>
                 handleOnChangeSelect(event.target.value, "university")
               }
