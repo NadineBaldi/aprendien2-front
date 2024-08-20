@@ -4,15 +4,15 @@ const EMAIL = "email";
 const PASSWORD = "password";
 const DUPLICATED_PASS = "duplicatedPass";
 const DNI = "dni";
-const REGISTRATION_NUMBER = "registrationNumber";
+const REGISTRATION_NUMBER = "docketNumber";
 const NAME = "name";
 const LAST_NAME = "lastName";
-const BIRTHDATE = "birthdate";
+const BIRTHDATE = "dateOfBirth";
 const PROVINCE_SELECTED = "provinceSelected";
 const CITY = "city";
-const DOMICILE = "domicile";
+const DOMICILE = "address";
 const UNIVERSITY = "university";
-const PHONE = "phone";
+const PHONE = "phoneNumber";
 const NEW_PASSWORD = "newPassword";
 const NEW_PASSWORD_DUPLICATED = "newPasswordDuplicated";
 const UNIVERSITY_PROVINCE = "universityProvince";
@@ -36,6 +36,7 @@ const INVALID_PHONE_NUMBER_FORMAT =
 const NOT_CORRECT_OPTION_SELECTED =
   "Cuidado! Al menos una opción debe ser correcta";
 const PASSWORDS_NOT_THE_SAME = "Las nuevas contraseñas deben coincidir";
+const LOGIN_ERROR = "Usuario y/o contraseña incorrectos. Por favor, inténtalo de nuevo."
 
 // status
 const ARCHIVED_COURSE_STATUS = "Archivado";
@@ -74,4 +75,5 @@ module.exports = {
   PASSWORDS_NOT_THE_SAME,
   UNIVERSITY_PROVINCE,
   UNIVERSITY_CITY,
+  LOGIN_ERROR,
 };

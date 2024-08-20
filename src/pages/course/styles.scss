@@ -7,6 +7,7 @@
 .course-view {
   text-align: center;
   background-image: url('../../../assets/images/Background.jpeg');
+  background-size: cover;
   min-height: 100vh;
   display: flex;
 }
@@ -47,7 +48,7 @@
 
   .MuiTab-textColorPrimary {
     width: 280px;
-    font-weight: bold;
+    font-weight: semibold;
     text-transform: capitalize;
     border: solid 0.5px lightgray;
     border-radius: $font-size-20;
