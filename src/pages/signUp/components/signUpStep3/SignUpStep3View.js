@@ -39,7 +39,7 @@ const SignUpStep3 = (props) => {
     provinces,
   } = props;
 
-  const { cities, loadCities, universities, loadUniversities } =
+  const { cities, loadCities, universities, loadUniversities, saveStudent } =
   useFetchCommon();
 
   useEffect(() => {
@@ -93,7 +93,6 @@ const SignUpStep3 = (props) => {
   };
 
   const handleSignUp = () => {
-    let hasErrors = false;
     const newErrorMessages = {};
 
     if (values[REGISTRATION_NUMBER].length <= 4) {
@@ -106,15 +105,13 @@ const SignUpStep3 = (props) => {
     for (const fieldName in values) {
       if (!values[fieldName]) {
         newErrorMessages[fieldName] = ERROR_EMPTY_FIELDS;
-        hasErrors = true;
+        return ;
       }
     }
 
     setErrorMessages(newErrorMessages);
 
-    if (!hasErrors && newErrorMessages.registrationNumber === "") {
-      window.location.href = "http://localhost:3000/login";
-    }
+    saveStudent(values);
   };
 
 
@@ -260,8 +257,8 @@ const SignUpStep3 = (props) => {
         </div>
         <div className="item-container">
           <TextField
-            id="registrationNumber"
-            value={values.registrationNumber}
+            id="docketNumber"
+            value={values.docketNumber}
             label="Número de legajo"
             color="primary"
             type="number"
@@ -272,10 +269,10 @@ const SignUpStep3 = (props) => {
             style={{ marginTop: 11 }}
             fullWidth
             onChange={(event) =>
-              handleFieldChange("registrationNumber", event.target.value)
+              handleFieldChange("docketNumber", event.target.value)
             }
-            error={!!errorMessages.registrationNumber}
-            helperText={errorMessages.registrationNumber}
+            error={!!errorMessages.docketNumber}
+            helperText={errorMessages.docketNumber}
           />
         </div>
       </div>
