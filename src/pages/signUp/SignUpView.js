@@ -8,6 +8,11 @@ import Step3 from "./components/signUpStep3/SignUpStep3View";
 //hook
 import useFetchCommon from "./hooks";
 
+import { getCookie } from "../../commons/helpers/cookies";
+
+// Utils
+import { TOKEN } from "../../constants/util";
+
 const SignUp = () => {
   // Use states
   const [currentStep, setCurrentStep] = useState(1);
@@ -52,6 +57,14 @@ const SignUp = () => {
   });
 
   const { loadProvinces, provinces } = useFetchCommon();
+  const token = getCookie(TOKEN);
+
+  useEffect(() => {
+    if (token) {
+      window.location.href = "http://localhost:3000/chooseCourse";
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   useEffect(() => {
     loadProvinces();

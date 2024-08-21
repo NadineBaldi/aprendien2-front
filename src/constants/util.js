@@ -17,6 +17,7 @@ const NEW_PASSWORD = "newPassword";
 const NEW_PASSWORD_DUPLICATED = "newPasswordDuplicated";
 const UNIVERSITY_PROVINCE = "universityProvince";
 const UNIVERSITY_CITY = "universityCity";
+const TOKEN = "token";
 
 // error messages
 const INVALID_EMAIL_FORMAT =
@@ -76,4 +77,5 @@ module.exports = {
   UNIVERSITY_PROVINCE,
   UNIVERSITY_CITY,
   LOGIN_ERROR,
+  TOKEN,
 };

@@ -44,6 +44,7 @@ const useFetchCommon = () => {
   const saveStudent = async (data) => {
     try {
       await signup(data);
+      window.location.href = "http://localhost:3000/login";
     } catch (e) {
       console.log(e);
     }
