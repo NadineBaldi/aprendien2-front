@@ -11,7 +11,7 @@ import { TOKEN } from "../../constants/util";
 const useFetchLogin = () => {
   const [error, setError] = useState(false);
 
-  const loginTeacher = async (username, password) => {
+  const loginStudent = async (username, password) => {
     try {
       const { data: { token } } = await login({username, password});
       setCookie(TOKEN, token);
@@ -25,7 +25,7 @@ const useFetchLogin = () => {
 
   return {
     error,
-    loginTeacher,
+    loginStudent,
   };
 };
 
