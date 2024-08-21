@@ -8,7 +8,6 @@ import useFetchCommon from "./hooks";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
@@ -24,6 +23,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
+
+import { deleteCookie } from '../../commons/helpers/cookies';
 
 // Constants
 import { courses } from "../../constants/courses";
@@ -46,6 +47,7 @@ import {
   NEW_PASSWORD,
   NEW_PASSWORD_DUPLICATED,
   PASSWORDS_NOT_THE_SAME,
+  TOKEN,
 } from "../../constants/util";
 
 const AccountData = () => {
@@ -444,7 +446,10 @@ const AccountData = () => {
             variant="contained"
             className="sign-off-button"
             color="primary"
-            // TODO: agregar onClick con acción de logout
+            onClick={() => {
+              deleteCookie(TOKEN);
+              window.location.href = "http://localhost:3000/login";
+            }}
           >
             Cerrar sesión
           </Button>

@@ -19,12 +19,15 @@ import LockIcon from "@mui/icons-material/Lock";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+import { getCookie } from "../../commons/helpers/cookies";
+
 // Utils
 import {
   EMPTY_FIELD,
   INVALID_EMAIL_FORMAT,
   INVALID_PASSWORD_FORMAT,
   LOGIN_ERROR,
+  TOKEN,
 } from "../../constants/util";
 
 const Login = () => {
@@ -35,21 +38,18 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loginErrorMessage, setLoginErrorMessage] = useState("");
-
+  const token = getCookie(TOKEN);
   const {
-    authenticated,
+    error,
     loginTeacher,
   } = useFetchLogin();
 
   useEffect(() => {
-    if (!emailError && !passwordError && authenticated) {
-     // window.location.href = "http://localhost:3000/courses";
-    } else if (authenticated === false) {
-      setLoginErrorMessage(LOGIN_ERROR);
+    if (token) {
+      window.location.href = "http://localhost:3000/chooseCourse";
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authenticated])
+  }, [token]);
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -188,7 +188,7 @@ const Login = () => {
             </Link>
           </div>
         </div>
-        {loginErrorMessage !== "" && (
+        {error && (
           <div className="login-message-container">
             <Alert variant="filled" severity="error">
               {LOGIN_ERROR}

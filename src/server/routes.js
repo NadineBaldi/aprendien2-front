@@ -6,27 +6,13 @@ const ChooseCourse = lazy(() => import("../client/chooseCourse"));
 const Course = lazy(() => import("../client/course"));
 const AccountData = lazy(() => import("../client/accountData"));
 
-const routes = [
-  {
-    path: "signUp",
-    name: "signUp",
-    layout: "/signUp",
-    exact: true,
-    element: <SignUp />,
-  },
+export const routes = [
   {
     path: "forgetPassword",
     name: "forgetPassword",
     layout: "/forgetPassword",
     exact: true,
     element: <ForgetPassword />,
-  },
-  {
-    path: "login",
-    name: "login",
-    layout: "/login",
-    exact: true,
-    element: <Login />,
   },
   {
     path: "chooseCourse",
@@ -51,4 +37,18 @@ const routes = [
   },
 ];
 
-export default routes;
+export const publicRoutes =  [{
+  path: "login",
+  name: "login",
+  layout: "/login",
+  exact: true,
+  element: <Login />,
+},
+{
+  path: "signUp",
+  name: "signUp",
+  layout: "/signUp",
+  exact: true,
+  element: <SignUp />,
+},
+];
