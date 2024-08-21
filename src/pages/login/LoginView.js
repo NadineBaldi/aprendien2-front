@@ -41,7 +41,7 @@ const Login = () => {
   const token = getCookie(TOKEN);
   const {
     error,
-    loginTeacher,
+    loginStudent,
   } = useFetchLogin();
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const Login = () => {
       return;
     }
 
-    loginTeacher(email, password);
+    loginStudent(email, password);
   };
 
   return (
