@@ -53,8 +53,8 @@ const PracticeQuestions = (props) => {
       </div>
       <div className="practice-questions-units-container">
         {courseSelected &&
-          courseSelected.units &&
-          courseSelected.units.map(({ name, id, questions }) => (
+          courseSelected.unitsList &&
+          courseSelected.unitsList.map(({ name, id, questionsList }) => (
             <div className="practice-questions-accordion">
               <Accordion
                 key={id}
@@ -71,7 +71,7 @@ const PracticeQuestions = (props) => {
                       </div>
                       <div className="practice-questions-total-question-container">
                         <Typography classes={{ root: "subtitle" }}>
-                          {questions.length}
+                          {questionsList.length}
                         </Typography>
                         {expanded.includes(id) ? (
                           <KeyboardArrowUpIcon fontSize="small" />
@@ -83,7 +83,7 @@ const PracticeQuestions = (props) => {
                         <Button
                           className="practice-questions-all-practice-btn"
                           onClick={(event) =>
-                            handlePracticeAll(event, questions)
+                            handlePracticeAll(event, questionsList)
                           }
                         >
                           Practicar todas
@@ -94,7 +94,7 @@ const PracticeQuestions = (props) => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <List>
-                    {questions.map(({ id, title, ...other }) => (
+                    {questionsList.map(({ id, title, ...other }) => (
                       <div className="practice-questions-list-item-container">
                         <ListItem
                           disablePadding

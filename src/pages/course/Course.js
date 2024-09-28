@@ -21,21 +21,30 @@ import GradesView from "./components/gradesView/GradesView";
 
 // Constants
 import { userData } from "../../constants/userData";
-import { courses } from "../../constants/courses";
+
+// Hooks
+import useFetchCourseInfo from "./hooks/hooks";
 
 const CourseView = () => {
   const { courseId } = useParams();
   const [userInfo, setUserInfo] = useState({});
   const [tabSelected, setTabSelected] = useState("practice-questions");
-  const [courseSelected, setCourseSelected] = useState({});
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [selectedQuestions, setSelectedQuestions] = useState(null);
   const [isAnExam, setIsAnExam] = useState(false);
   const [isFinishedExam, setIsFinishedExam] = useState(false);
 
+  const { getSelectedCourseDetails, selectedCourseDetails } =
+    useFetchCourseInfo(courseId);
+
   const handleChange = (event, newValue) => {
     setTabSelected(newValue);
   };
+
+  useEffect(() => {
+    getSelectedCourseDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const userId = 1;
 
@@ -43,17 +52,6 @@ const CourseView = () => {
     if (userData) {
       const filterData = userData.find(({ id }) => id === userId);
       setUserInfo(filterData);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (courseId && courses) {
-      const selectedCourse = courses.find(
-        ({ id }) => id.toString() === courseId
-      );
-      if (selectedCourse) {
-        setCourseSelected(selectedCourse);
-      }
     }
   }, []);
 
@@ -135,14 +133,14 @@ const CourseView = () => {
                 <div>
                   {tabSelected === "practice-questions" && (
                     <PracticeQuestions
-                      courseSelected={courseSelected}
+                      courseSelected={selectedCourseDetails}
                       setSelectedQuestion={setSelectedQuestion}
                       setSelectedQuestions={setSelectedQuestions}
                     />
                   )}
                   {tabSelected === "practice-exams" && (
                     <PracticeExams
-                      courseSelected={courseSelected}
+                      courseSelected={selectedCourseDetails}
                       setIsAnExam={setIsAnExam}
                       setSelectedQuestions={setSelectedQuestions}
                     />
