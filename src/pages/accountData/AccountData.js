@@ -105,6 +105,12 @@ const AccountData = () => {
   }, [newUserData[UNIVERSITY]]);
 
   useEffect(() => {
+    if (studentInfo) {
+      setNewUserData(studentInfo);
+    }
+  }, [studentInfo]);
+
+  useEffect(() => {
     loadProvinces();
     loadStudentInfo();
   }, []);
@@ -560,7 +566,7 @@ const AccountData = () => {
                       onChange={(event) =>
                         handleChangeNewUserData(event, PROVINCE_SELECTED)
                       }
-                      value={newUserData.city?.province?.name}
+                      value={newUserData.city?.province?.id}
                       disabled={editData.provinceSelected ? false : true}
                       endAdornment={handleEndAdornment(PROVINCE_SELECTED)}
                       classes={{
@@ -583,7 +589,7 @@ const AccountData = () => {
                 )}
               </div>
               <div className="accountData-item-container-form-control">
-                {studentInfo?.city?.province?.name && (
+                {studentInfo?.city?.province?.id && (
                   <FormControl
                     color="primary"
                     focused
@@ -596,7 +602,7 @@ const AccountData = () => {
                       label="Seleccionar ciudad"
                       color="primary"
                       onChange={(event) => handleChangeNewUserData(event, CITY)}
-                      value={newUserData.city?.name}
+                      value={newUserData.city?.id}
                       endAdornment={handleEndAdornment(CITY)}
                       classes={{
                         root: "option-select",
