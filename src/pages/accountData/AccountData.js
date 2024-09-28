@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 //hook
-import useFetchCommon from "./hooks";
+import useFetchAccountData from "./hooks/hooks";
+import useFetchCommon from "../../commons/hooks/hooks";
 
 // Material UI Components
 import Avatar from "@mui/material/Avatar";
@@ -24,11 +26,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 
-import { deleteCookie } from '../../commons/helpers/cookies';
+import { deleteCookie } from "../../commons/helpers/cookies";
 
 // Constants
 import { courses } from "../../constants/courses";
-import { userData } from "../../constants/userData";
 import {
   DNI,
   EMAIL,
@@ -53,7 +54,17 @@ import {
 const AccountData = () => {
   const { courseId } = useParams();
 
-  const [data, setData] = useState({});
+  // Hooks
+  const {
+    provinces,
+    cities,
+    universityData,
+    loadProvinces,
+    loadCities,
+    getUniversityInfoById,
+  } = useFetchAccountData();
+  const { loadStudentInfo, studentInfo } = useFetchCommon();
+
   const [editData, setEditData] = useState({
     email: false,
     password: false,
@@ -67,7 +78,7 @@ const AccountData = () => {
     newPassword: false,
     newPasswordDuplicated: false,
   });
-  const [newUserData, setNewUserData] = useState({});
+  const [newUserData, setNewUserData] = useState(studentInfo);
   const [errorMessages, setErrorMessages] = useState({
     email: "",
     password: "",
@@ -84,17 +95,6 @@ const AccountData = () => {
   });
   const [courseName, setCourseName] = useState("");
 
-  const userId = 1;
-
-  const {
-    provinces,
-    cities,
-    universityData,
-    loadProvinces,
-    loadCities,
-    getUniversityInfoById,
-  } = useFetchCommon();
-
   useEffect(() => {
     if (newUserData[PROVINCE_SELECTED])
       loadCities(newUserData[PROVINCE_SELECTED]);
@@ -106,11 +106,7 @@ const AccountData = () => {
 
   useEffect(() => {
     loadProvinces();
-    if (userData) {
-      const filterData = userData.find(({ id }) => id === userId);
-      setData(filterData);
-      setNewUserData(filterData);
-    }
+    loadStudentInfo();
   }, []);
 
   useEffect(() => {
@@ -122,7 +118,6 @@ const AccountData = () => {
         setCourseName(selectedCourse.name);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleEditIconClick = (key, value) => {
@@ -130,7 +125,7 @@ const AccountData = () => {
   };
 
   const handleCancelChange = (key) => {
-    setNewUserData(data);
+    setNewUserData(studentInfo);
     handleEditIconClick(key, false);
 
     // Clean message error
@@ -261,7 +256,6 @@ const AccountData = () => {
       newErrorMessages.newPassword === "" &&
       newErrorMessages.newPasswordDuplicated === ""
     ) {
-      setData(newUserData);
       handleEditIconClick(key, false);
       // TODO: llamar backend para guardar los cambios
     }
@@ -305,7 +299,7 @@ const AccountData = () => {
             <div className="accountData-text-field-container">
               <TextField
                 id={EMAIL}
-                value={newUserData.email}
+                value={newUserData.username}
                 label="Correo electrónico"
                 placeholder="aaaa@gmail.com"
                 color="primary"
@@ -537,7 +531,7 @@ const AccountData = () => {
               <div className="accountData-item-container">
                 <TextField
                   id={DNI}
-                  value={data.dni}
+                  value={studentInfo?.dni}
                   label="DNI"
                   color="primary"
                   type="number"
@@ -551,7 +545,7 @@ const AccountData = () => {
                 />
               </div>
               <div className="accountData-item-container-form-control">
-                {data.provinceSelected && (
+                {studentInfo?.city?.province?.name && (
                   <FormControl
                     color="primary"
                     focused
@@ -566,63 +560,63 @@ const AccountData = () => {
                       onChange={(event) =>
                         handleChangeNewUserData(event, PROVINCE_SELECTED)
                       }
-                      value={newUserData.provinceSelected}
+                      value={newUserData.city?.province?.name}
                       disabled={editData.provinceSelected ? false : true}
                       endAdornment={handleEndAdornment(PROVINCE_SELECTED)}
                       classes={{
                         root: "option-select",
                       }}
                     >
-                    {provinces.map(({ id, name }) => (
-                      <MenuItem
-                        key={id}
-                        value={id}
-                        classes={{
-                          root: "menu-options",
-                        }}
-                      >
-                        {name}
-                      </MenuItem>
-                    ))}
+                      {provinces.map(({ id, name }) => (
+                        <MenuItem
+                          key={id}
+                          value={id}
+                          classes={{
+                            root: "menu-options",
+                          }}
+                        >
+                          {name}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                 )}
               </div>
               <div className="accountData-item-container-form-control">
-              {data.provinceSelected && (
-                <FormControl
-                  color="primary"
-                  focused
-                  fullWidth
-                  error={!!errorMessages.city}
-                >
-                  <InputLabel>Seleccionar ciudad</InputLabel>
-                  <Select
-                    id={CITY}
-                    label="Seleccionar ciudad"
+                {studentInfo?.city?.province?.name && (
+                  <FormControl
                     color="primary"
-                    onChange={(event) => handleChangeNewUserData(event, CITY)}
-                    value={newUserData.city}
-                    endAdornment={handleEndAdornment(CITY)}
-                    classes={{
-                      root: "option-select",
-                    }}
+                    focused
+                    fullWidth
+                    error={!!errorMessages.city}
                   >
-                    {cities.map(({ id, name }) => (
-                      <MenuItem
-                        key={id}
-                        value={id}
-                        classes={{
-                          root: "menu-options",
-                        }}
-                      >
-                        {name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              )}
-            </div>
+                    <InputLabel>Seleccionar ciudad</InputLabel>
+                    <Select
+                      id={CITY}
+                      label="Seleccionar ciudad"
+                      color="primary"
+                      onChange={(event) => handleChangeNewUserData(event, CITY)}
+                      value={newUserData.city?.name}
+                      endAdornment={handleEndAdornment(CITY)}
+                      classes={{
+                        root: "option-select",
+                      }}
+                    >
+                      {cities.map(({ id, name }) => (
+                        <MenuItem
+                          key={id}
+                          value={id}
+                          classes={{
+                            root: "menu-options",
+                          }}
+                        >
+                          {name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                )}
+              </div>
               <div className="accountData-item-container">
                 <TextField
                   id={DOMICILE}
@@ -645,7 +639,7 @@ const AccountData = () => {
               <div className="accountData-item-container">
                 <TextField
                   id={REGISTRATION_NUMBER}
-                  value={data.docketNumber}
+                  value={studentInfo.docketNumber}
                   label="Número de legajo"
                   color="primary"
                   type="number"
@@ -660,20 +654,20 @@ const AccountData = () => {
               </div>
             </div>
             <div className="accountData-uni-container">
-            <TextField
-              id={UNIVERSITY}
-              value={universityData.name}
-              label="Universidad"
-              color="primary"
-              focused
-              InputProps={{
-                className: "text-field",
-                readOnly: true,
-              }}
-              style={{ marginTop: 11 }}
-              fullWidth
-            />
-          </div>
+              <TextField
+                id={UNIVERSITY}
+                value={universityData.name}
+                label="Universidad"
+                color="primary"
+                focused
+                InputProps={{
+                  className: "text-field",
+                  readOnly: true,
+                }}
+                style={{ marginTop: 11 }}
+                fullWidth
+              />
+            </div>
           </div>
         </div>
       </div>

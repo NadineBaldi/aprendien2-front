@@ -5,9 +5,9 @@ import {
   getAllProvinces,
   getCityByProvinceId,
   getUniversityById,
-} from "../../api/commons";
+} from "../../../api/commons";
 
-const useFetchCommon = () => {
+const useFetchAccountData = () => {
   const [provinces, setProvinces] = useState([]);
   const [cities, setCities] = useState([]);
   const [universityData, setUniversityData] = useState({});
@@ -49,4 +49,4 @@ const useFetchCommon = () => {
   };
 };
 
-export default useFetchCommon;
+export default useFetchAccountData;
