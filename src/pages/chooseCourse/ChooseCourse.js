@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI Components
 import Button from "@mui/material/Button";
@@ -8,12 +8,20 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 
-// Constants
-import { courses } from "../../constants/courses";
+// Hooks
+import useFetchStudentSubjects from "./hooks/hooks";
 
 const ChooseCourse = () => {
   const [courseSelected, setCourseSelected] = useState({ id: null, name: "" });
   const { id: courseSelectedId } = courseSelected;
+
+  // Hooks
+  const { getStudentSubjects, subjects } = useFetchStudentSubjects();
+
+  useEffect(() => {
+    getStudentSubjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChangeCourseSelected = (event) => {
     const courseId = event.target.value;
@@ -49,7 +57,7 @@ const ChooseCourse = () => {
               value={courseSelectedId}
               onChange={handleChangeCourseSelected}
             >
-              {courses.map(({ name, id }) => (
+              {subjects?.map(({ name, id }) => (
                 <FormControlLabel
                   key={id}
                   value={id}
