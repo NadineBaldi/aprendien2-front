@@ -19,23 +19,22 @@ import PracticeExams from "./components/practiceExamsTab/PracticeExams";
 import QuestionView from "./components/questionView/QuestionView";
 import GradesView from "./components/gradesView/GradesView";
 
-// Constants
-import { userData } from "../../constants/userData";
-
 // Hooks
 import useFetchCourseInfo from "./hooks/hooks";
+import useFetchCommon from "../../commons/hooks/hooks";
 
 const CourseView = () => {
   const { courseId } = useParams();
-  const [userInfo, setUserInfo] = useState({});
   const [tabSelected, setTabSelected] = useState("practice-questions");
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [selectedQuestions, setSelectedQuestions] = useState(null);
   const [isAnExam, setIsAnExam] = useState(false);
   const [isFinishedExam, setIsFinishedExam] = useState(false);
 
+  // Hooks
   const { getSelectedCourseDetails, selectedCourseDetails } =
     useFetchCourseInfo(courseId);
+  const { loadStudentInfo, studentInfo } = useFetchCommon();
 
   const handleChange = (event, newValue) => {
     setTabSelected(newValue);
@@ -43,16 +42,8 @@ const CourseView = () => {
 
   useEffect(() => {
     getSelectedCourseDetails();
+    loadStudentInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const userId = 1;
-
-  useEffect(() => {
-    if (userData) {
-      const filterData = userData.find(({ id }) => id === userId);
-      setUserInfo(filterData);
-    }
   }, []);
 
   const handleOnClick = () => {
@@ -88,7 +79,11 @@ const CourseView = () => {
                   />
                 </div>
                 <Typography classes={{ root: "university-title" }}>
-                  {userInfo.university}
+                  {studentInfo &&
+                  studentInfo.university &&
+                  studentInfo.university.name
+                    ? studentInfo.university.name
+                    : "Universidad"}
                 </Typography>
                 <div className="course-view-tabs-container">
                   <Tabs
@@ -121,7 +116,9 @@ const CourseView = () => {
                   className="course-view-user-info-container"
                 >
                   <Typography classes={{ root: "user-name-text" }}>
-                    {userInfo.name} {userInfo.lastName}
+                    {studentInfo && studentInfo.name && studentInfo.lastName
+                      ? `${studentInfo.name} ${studentInfo.lastName}`
+                      : "Usuario"}
                   </Typography>
                 </div>
                 <div className="course-view-line-container"></div>
