@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 //hook
 import useFetchAccountData from "./hooks/hooks";
 import useFetchCommon from "../../commons/hooks/hooks";
+import useFetchCourseInfo from "./hooks/hooks";
 
 // Material UI Components
 import Avatar from "@mui/material/Avatar";
@@ -17,6 +18,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import Snackbar from "@mui/material/Snackbar";
 
 // Icons
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -29,7 +31,6 @@ import LockIcon from "@mui/icons-material/Lock";
 import { deleteCookie } from "../../commons/helpers/cookies";
 
 // Constants
-import { courses } from "../../constants/courses";
 import {
   DNI,
   EMAIL,
@@ -63,8 +64,14 @@ const AccountData = () => {
     loadCities,
     getUniversityInfoById,
   } = useFetchAccountData();
-  const { loadStudentInfo, studentInfo } = useFetchCommon();
 
+  const { loadStudentInfo, studentInfo, snackbar, setSnackbar, updateStudent } =
+    useFetchCommon();
+
+  const { getSelectedCourseDetails, selectedCourseDetails } =
+    useFetchCourseInfo(courseId);
+
+  // useState
   const [editData, setEditData] = useState({
     email: false,
     password: false,
@@ -93,7 +100,6 @@ const AccountData = () => {
     newPassword: "",
     newPasswordDuplicated: "",
   });
-  const [courseName, setCourseName] = useState("");
 
   useEffect(() => {
     if (newUserData[PROVINCE_SELECTED])
@@ -113,17 +119,7 @@ const AccountData = () => {
   useEffect(() => {
     loadProvinces();
     loadStudentInfo();
-  }, []);
-
-  useEffect(() => {
-    if (courseId && courses) {
-      const selectedCourse = courses.find(
-        ({ id }) => id.toString() === courseId
-      );
-      if (selectedCourse && selectedCourse.name) {
-        setCourseName(selectedCourse.name);
-      }
-    }
+    getSelectedCourseDetails();
   }, []);
 
   const handleEditIconClick = (key, value) => {
@@ -257,14 +253,23 @@ const AccountData = () => {
 
     if (
       !hasErrors &&
-      newErrorMessages.email === "" &&
-      newErrorMessages.password === "" &&
-      newErrorMessages.newPassword === "" &&
-      newErrorMessages.newPasswordDuplicated === ""
+      !newErrorMessages.email &&
+      (!editData[`${PASSWORD}`] ||
+        (!newErrorMessages.password &&
+          !newErrorMessages.newPassword &&
+          newErrorMessages.newPasswordDuplicated === ""))
     ) {
+      updateStudent(newUserData);
       handleEditIconClick(key, false);
-      // TODO: llamar backend para guardar los cambios
     }
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackbar({ open: false });
   };
 
   return (
@@ -305,7 +310,7 @@ const AccountData = () => {
             <div className="accountData-text-field-container">
               <TextField
                 id={EMAIL}
-                value={newUserData.username}
+                value={newUserData.email}
                 label="Correo electrónico"
                 placeholder="aaaa@gmail.com"
                 color="primary"
@@ -439,7 +444,7 @@ const AccountData = () => {
           <div className="accountData-course-info-container">
             <Typography classes={{ root: "subtitle-text" }}>Materia</Typography>
             <Typography classes={{ root: "course-name-text" }}>
-              {courseName}
+              {selectedCourseDetails.name}
             </Typography>
           </div>
           <Button
@@ -537,7 +542,7 @@ const AccountData = () => {
               <div className="accountData-item-container">
                 <TextField
                   id={DNI}
-                  value={studentInfo?.dni}
+                  value={newUserData.dni}
                   label="DNI"
                   color="primary"
                   type="number"
@@ -551,7 +556,7 @@ const AccountData = () => {
                 />
               </div>
               <div className="accountData-item-container-form-control">
-                {studentInfo?.city?.province?.name && (
+                {newUserData.provinceSelected && (
                   <FormControl
                     color="primary"
                     focused
@@ -566,7 +571,7 @@ const AccountData = () => {
                       onChange={(event) =>
                         handleChangeNewUserData(event, PROVINCE_SELECTED)
                       }
-                      value={newUserData.city?.province?.id}
+                      value={newUserData.provinceSelected}
                       disabled={editData.provinceSelected ? false : true}
                       endAdornment={handleEndAdornment(PROVINCE_SELECTED)}
                       classes={{
@@ -589,7 +594,7 @@ const AccountData = () => {
                 )}
               </div>
               <div className="accountData-item-container-form-control">
-                {studentInfo?.city?.province?.id && (
+                {newUserData.provinceSelected && (
                   <FormControl
                     color="primary"
                     focused
@@ -602,7 +607,7 @@ const AccountData = () => {
                       label="Seleccionar ciudad"
                       color="primary"
                       onChange={(event) => handleChangeNewUserData(event, CITY)}
-                      value={newUserData.city?.id}
+                      value={newUserData.city}
                       endAdornment={handleEndAdornment(CITY)}
                       classes={{
                         root: "option-select",
@@ -645,7 +650,7 @@ const AccountData = () => {
               <div className="accountData-item-container">
                 <TextField
                   id={REGISTRATION_NUMBER}
-                  value={studentInfo.docketNumber}
+                  value={newUserData.docketNumber}
                   label="Número de legajo"
                   color="primary"
                   type="number"
@@ -676,6 +681,13 @@ const AccountData = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="snackbar-container">
+        <Snackbar
+          {...snackbar}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        />
       </div>
     </div>
   );
