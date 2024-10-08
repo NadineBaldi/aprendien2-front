@@ -16,3 +16,7 @@ const config = {
 export function getStudentInfo() {
   return axios.get(`${API_URL}/student/find/id/${userId}`, config);
 }
+
+export function updateStudentInfo(data) {
+  return axios.put(`${API_URL}/student/update/`, data, config);
+}

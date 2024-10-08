@@ -168,3 +168,9 @@
   font-size: $font-size-14 !important;
   font-weight: bold !important;  
 }
+
+.snackbar-container {
+  .MuiSnackbar-root {
+    margin-left: 700px;
+  }
+}
