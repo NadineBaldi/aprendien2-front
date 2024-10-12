@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 //hook
 import useFetchAccountData from "./hooks/hooks";
 import useFetchCommon from "../../commons/hooks/hooks";
-import useFetchCourseInfo from "./hooks/hooks";
+import useFetchCourseInfo from "../course/hooks/hooks";
 
 // Material UI Components
 import Avatar from "@mui/material/Avatar";
@@ -334,7 +334,7 @@ const AccountData = () => {
             <div className="accountData-text-field-container">
               <TextField
                 id={PASSWORD}
-                value={newUserData.password}
+                defaultValue="********"
                 label={
                   editData[`${PASSWORD}`] ? "Contraseña anterior" : "Contraseña"
                 }

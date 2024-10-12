@@ -18,5 +18,5 @@ export function getStudentInfo() {
 }
 
 export function updateStudentInfo(data) {
-  return axios.put(`${API_URL}/student/update/`, data, config);
+  return axios.put(`${API_URL}/student/update`, data, config);
 }
