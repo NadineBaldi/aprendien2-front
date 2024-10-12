@@ -6,12 +6,13 @@
   background-size: cover;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .accountData-container {
   background-color: $secondary-color;
   min-height: 575px;
-  width: 800px;
+  width: 900px;
 }
 
 .accountData-header-container {
@@ -28,6 +29,7 @@
 
 .accountData-body {
   display: flex;  
+  height: 100%;
 }
 
 .accountData-button-back-container {
@@ -100,8 +102,8 @@
 .accountData-uni-container {
   text-align: center;
   margin-top: 24px;
-  width: 760px;
-  margin-left: $font-size-20;
+  width: 805px;
+  margin-left: 48px;
 }
 
 .accountData-profile-container {

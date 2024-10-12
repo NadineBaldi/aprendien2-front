@@ -20,3 +20,7 @@ export function getStudentInfo() {
 export function updateStudentInfo(data) {
   return axios.put(`${API_URL}/student/update`, data, config);
 }
+
+export function changePassword(data) {
+  return axios.post(`${API_URL}/student/${userId}/change-password`, data, config);
+}

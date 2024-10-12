@@ -65,8 +65,14 @@ const AccountData = () => {
     getUniversityInfoById,
   } = useFetchAccountData();
 
-  const { loadStudentInfo, studentInfo, snackbar, setSnackbar, updateStudent } =
-    useFetchCommon();
+  const { 
+    loadStudentInfo, 
+    studentInfo, 
+    snackbar, 
+    setSnackbar, 
+    updateStudent,
+    updatePassword
+  } = useFetchCommon();
 
   const { getSelectedCourseDetails, selectedCourseDetails } =
     useFetchCourseInfo(courseId);
@@ -223,20 +229,12 @@ const AccountData = () => {
     let hasErrors = false;
     const newErrorMessages = {
       email: getEmailErrorMessage(),
-      password: getPasswordErrorMessage(PASSWORD),
-      newPassword: getNewPasswordErrorMessage(NEW_PASSWORD),
-      newPasswordDuplicated: getNewPasswordErrorMessage(
-        NEW_PASSWORD_DUPLICATED
-      ),
     };
 
     for (const fieldName in newUserData) {
       if (
         fieldName !== "id" &&
         fieldName !== EMAIL &&
-        fieldName !== PASSWORD &&
-        fieldName !== NEW_PASSWORD &&
-        fieldName !== NEW_PASSWORD_DUPLICATED &&
         newUserData[UNIVERSITY] &&
         !newUserData[fieldName]
       ) {
@@ -253,16 +251,38 @@ const AccountData = () => {
 
     if (
       !hasErrors &&
-      !newErrorMessages.email &&
-      (!editData[`${PASSWORD}`] ||
-        (!newErrorMessages.password &&
-          !newErrorMessages.newPassword &&
-          newErrorMessages.newPasswordDuplicated === ""))
+      !newErrorMessages.email
     ) {
       updateStudent(newUserData);
       handleEditIconClick(key, false);
     }
   };
+
+  const handleChangePassword = () => {
+    let hasErrors = false;
+    const newErrorMessages = {
+      password: getPasswordErrorMessage(PASSWORD),
+      newPassword: getNewPasswordErrorMessage(NEW_PASSWORD),
+      newPasswordDuplicated: getNewPasswordErrorMessage(
+        NEW_PASSWORD_DUPLICATED
+      ),
+    };
+
+    setErrorMessages(newErrorMessages);
+
+    if (
+      !hasErrors &&
+      (!editData[`${PASSWORD}`] || (!newErrorMessages.password &&
+      !newErrorMessages.newPassword &&
+      !newErrorMessages.newPasswordDuplicated))
+    ) {
+      updatePassword({
+        currentPassword: newUserData[PASSWORD],
+        newPassword: newUserData[NEW_PASSWORD]
+    });
+      handleEditIconClick(PASSWORD, false);
+    }
+  }
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
@@ -334,7 +354,6 @@ const AccountData = () => {
             <div className="accountData-text-field-container">
               <TextField
                 id={PASSWORD}
-                defaultValue="********"
                 label={
                   editData[`${PASSWORD}`] ? "Contraseña anterior" : "Contraseña"
                 }
@@ -415,7 +434,7 @@ const AccountData = () => {
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="save changes"
-                            onClick={() => handleApplyChange(PASSWORD)}
+                            onClick={() => handleChangePassword()}
                             edge="end"
                           >
                             <CheckIcon color="green" />
