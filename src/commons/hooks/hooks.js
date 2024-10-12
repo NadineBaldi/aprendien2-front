@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Api
-import { getStudentInfo, updateStudentInfo } from "../../api/student";
+import { getStudentInfo, updateStudentInfo, changePassword } from "../../api/student";
 
 const useFetchCommon = () => {
   const [studentInfo, setStudentInfo] = useState({});
@@ -37,12 +37,29 @@ const useFetchCommon = () => {
     }
   };
 
+  const updatePassword = async (data) => {
+    try {
+      await changePassword(data);
+      setSnackbar({ 
+        open: true, 
+        message: "Contraseña guardada correctamente" 
+      });
+    } catch (e) {
+      setSnackbar({
+        open: true, 
+        message: "Ocurrió un error, intente nuevamente"
+      });
+      console.log(e);
+    }
+  }
+
   return {
     loadStudentInfo,
     studentInfo,
     snackbar,
     setSnackbar,
     updateStudent,
+    updatePassword,
   };
 };
 
