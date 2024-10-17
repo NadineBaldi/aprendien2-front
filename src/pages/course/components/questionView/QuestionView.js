@@ -16,11 +16,11 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 const QuestionView = (props) => {
   const {
     selectedQuestion,
-    setSelectedQuestion,
     questions,
-    setQuestions,
-    isAnExam,
-    setIsFinishedExam,
+    selectedExam,
+    handleCompleteExam,
+    handleBackBtn,
+    handleSaveAnswers,
   } = props;
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -46,7 +46,7 @@ const QuestionView = (props) => {
       (reviewMessage &&
         questions &&
         currentQuestionIndex < questions.length - 1) ||
-      (isAnExam && questions && currentQuestionIndex < questions.length - 1)
+      (selectedExam && questions && currentQuestionIndex < questions.length - 1)
     ) {
       return (
         <Button
@@ -61,7 +61,7 @@ const QuestionView = (props) => {
         </Button>
       );
     } else if (
-      isAnExam &&
+      selectedExam &&
       questions &&
       currentQuestionIndex === questions.length - 1
     ) {
@@ -69,7 +69,7 @@ const QuestionView = (props) => {
         <Button
           variant="contained"
           className="question-view__send-btn"
-          onClick={handleOnClickFinishExam}
+          onClick={() => handleCompleteExam(selectedOptions)}
         >
           Finalizar exámen
         </Button>
@@ -88,19 +88,20 @@ const QuestionView = (props) => {
   };
 
   const handleNextQuestion = () => {
+    handleSaveAnswers(selectedOptions);
     setReviewMessage("");
     setSelectedOptions([]);
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
 
   const handleSendAnswer = () => {
-    const totalCorrectOptions = currentQuestion.options.filter(
+    const totalCorrectOptions = currentQuestion.answers.filter(
       (option) => option.correct
     ).length;
 
     const totalcorrectOptionsSelected = selectedOptions.filter(
       (optionId) =>
-        currentQuestion.options.find((option) => option.id === optionId)
+        currentQuestion.answers.find((option) => option.id === optionId)
           ?.correct
     ).length;
 
@@ -109,15 +110,6 @@ const QuestionView = (props) => {
     );
   };
 
-  const handleBackBtn = () => {
-    setSelectedQuestion(null);
-    setQuestions(null);
-  };
-
-  const handleOnClickFinishExam = () => {
-    setIsFinishedExam(true);
-    setQuestions(null);
-  };
 
   return (
     <div className="question-view">
@@ -135,7 +127,7 @@ const QuestionView = (props) => {
             </div>
             <div className="question-view__header-title">
               <Typography classes={{ root: "question-view__title" }}>
-                {isAnExam
+                {selectedExam
                   ? "Practicando exámenes..."
                   : "Practicando preguntas..."}
               </Typography>
@@ -145,7 +137,7 @@ const QuestionView = (props) => {
             <div className="question-view__body-left">
               <div className="question-view__question-title-container">
                 <Typography classes={{ root: "question-view__question-title" }}>
-                  {currentQuestion.title}
+                  {currentQuestion.question}
                 </Typography>
               </div>
             </div>
@@ -153,7 +145,7 @@ const QuestionView = (props) => {
               <div className="question-view__list-container">
                 <List>
                   <div className="question-view__options-list">
-                    {currentQuestion.options.map(({ id, title }) => (
+                    {currentQuestion.answers.map(({ id, answer }) => (
                       <ListItem key={id} disablePadding>
                         <ListItemButton role={undefined} dense>
                           <ListItemIcon>
@@ -163,12 +155,12 @@ const QuestionView = (props) => {
                               tabIndex={-1}
                               disableRipple
                               inputProps={{
-                                "aria-labelledby": `checkbox-list-label-${title}`,
+                                "aria-labelledby": `checkbox-list-label-${answer}`,
                               }}
                               onChange={(event) => handleOnChangeCheckbox(id)}
                             />
                           </ListItemIcon>
-                          <ListItemText primary={title} />
+                          <ListItemText primary={answer} />
                         </ListItemButton>
                       </ListItem>
                     ))}

@@ -17,14 +17,9 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 
 const GradesView = (props) => {
-  const { setIsFinishedExam, setIsAnExam } = props;
-
-  const calification = 70;
-
-  const handleBackBtn = () => {
-    setIsFinishedExam(false);
-    setIsAnExam(false);
-  };
+  const { handleBackBtn, examResult } = props;
+  const { result, studentAnswersList = [] } = examResult;
+  const calification = (result / studentAnswersList.length) * 100;
 
   const StyledRating = styled(Rating)(({ theme }) => ({
     "& .MuiRating-iconEmpty .MuiSvgIcon-root": {
@@ -69,7 +64,7 @@ const GradesView = (props) => {
             startIcon={<ArrowBackIcon />}
             onClick={handleBackBtn}
           >
-            Volver atrás
+            Volver al curso
           </Button>
         </div>
         <div className="grades-view__header-title">

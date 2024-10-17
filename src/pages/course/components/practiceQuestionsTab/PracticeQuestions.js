@@ -94,7 +94,7 @@ const PracticeQuestions = (props) => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <List>
-                    {questionsList.map(({ id, title, ...other }) => (
+                    {questionsList.map(({ id, question, ...other }) => (
                       <div className="practice-questions-list-item-container">
                         <ListItem
                           disablePadding
@@ -104,7 +104,7 @@ const PracticeQuestions = (props) => {
                               edge="end"
                               aria-label="play"
                               onClick={() =>
-                                setSelectedQuestion({ id, title, ...other })
+                                setSelectedQuestion({ id, question, ...other })
                               }
                             >
                               <PlayCircleIcon fontSize="small" color="green" />
@@ -115,7 +115,7 @@ const PracticeQuestions = (props) => {
                             <ListItemIcon>
                               <LibraryBooksIcon fontSize="small" />
                             </ListItemIcon>
-                            <ListItemText primary={title} />
+                            <ListItemText primary={question} />
                           </ListItemButton>
                         </ListItem>
                       </div>

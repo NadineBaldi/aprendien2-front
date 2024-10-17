@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { differenceInMinutes } from "date-fns";
 
 // Material UI Components
 import Avatar from "@mui/material/Avatar";
@@ -28,12 +29,20 @@ const CourseView = () => {
   const [tabSelected, setTabSelected] = useState("practice-questions");
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [selectedQuestions, setSelectedQuestions] = useState(null);
-  const [isAnExam, setIsAnExam] = useState(false);
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
+  const [selectedExam, setSelectedExam] = useState(false);
   const [isFinishedExam, setIsFinishedExam] = useState(false);
+  const [examStartDate, setExamStartDate] = useState(null);
 
   // Hooks
-  const { getSelectedCourseDetails, selectedCourseDetails } =
-    useFetchCourseInfo(courseId);
+  const {
+    getSelectedCourseDetails,
+    selectedCourseDetails,
+    exams,
+    getExams,
+    completeExam,
+    examResult,
+  } = useFetchCourseInfo(courseId);
   const { loadStudentInfo, studentInfo } = useFetchCommon();
 
   const handleChange = (event, newValue) => {
@@ -43,6 +52,7 @@ const CourseView = () => {
   useEffect(() => {
     getSelectedCourseDetails();
     loadStudentInfo();
+    getExams();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -50,23 +60,44 @@ const CourseView = () => {
     window.location.href = `http://localhost:3000/accountData/${courseId}`;
   };
 
+  const handleSaveAnswers = (newAnswers) => {
+    setSelectedAnswers([...selectedAnswers, ...newAnswers]);
+  }
+
+  const handleCompleteExam = (lastAnwsers) => {
+    completeExam({
+      examId: selectedExam.id,
+      state: "FINISHED",
+      finalDuration: differenceInMinutes(examStartDate, new Date ()),
+      completionDate: new Date(),
+      studentAnswersList: [...selectedAnswers, ...lastAnwsers],
+    });
+    setIsFinishedExam(true);
+    setSelectedQuestions(null);
+  };
+
+  const handleBackBtn = () => {
+    setSelectedQuestion(null);
+    setSelectedQuestions(null);
+  };
+
   return (
     <>
       {selectedQuestion || selectedQuestions ? (
         <QuestionView
           selectedQuestion={selectedQuestion}
-          setSelectedQuestion={setSelectedQuestion}
           questions={selectedQuestions}
-          setQuestions={setSelectedQuestions}
-          isAnExam={isAnExam}
-          setIsFinishedExam={setIsFinishedExam}
+          selectedExam={selectedExam}
+          handleCompleteExam={handleCompleteExam}
+          handleBackBtn={handleBackBtn}
+          handleSaveAnswers={handleSaveAnswers}
         />
       ) : (
         <>
           {isFinishedExam ? (
             <GradesView
-              setIsFinishedExam={setIsFinishedExam}
-              setIsAnExam={setIsAnExam}
+            handleBackBtn={() => setIsFinishedExam(false)}
+            examResult={examResult}
             />
           ) : (
             <div className="course-view">
@@ -138,8 +169,10 @@ const CourseView = () => {
                   {tabSelected === "practice-exams" && (
                     <PracticeExams
                       courseSelected={selectedCourseDetails}
-                      setIsAnExam={setIsAnExam}
+                      setSelectedExam={setSelectedExam}
                       setSelectedQuestions={setSelectedQuestions}
+                      exams={exams}
+                      setExamStartDate={setExamStartDate}
                     />
                   )}
                 </div>
