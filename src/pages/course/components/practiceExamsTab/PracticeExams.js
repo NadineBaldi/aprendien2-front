@@ -5,25 +5,24 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
-// Constants
-import { exams } from "../../../../constants/exams";
 
 const PracticeExams = (props) => {
-  const { courseSelected, setIsAnExam, setSelectedQuestions } = props;
+  const { courseSelected, setSelectedExam, setSelectedQuestions, exams, setExamStartDate } = props;
 
-  const handleTitle = (timeLimit, questions) => {
+  const handleTitle = (duration, questionList = []) => {
     return (
       <Typography classes={{ root: "time-quantity-text" }}>
-        {timeLimit !== null
-          ? `${timeLimit} MINUTOS DISPONIBLES. ${questions.length} PREGUNTAS.`
-          : `SIN LÍMITE DE TIEMPO. ${questions.length} PREGUNTAS.`}
+        {duration !== null
+          ? `${duration} MINUTOS DISPONIBLES. ${questionList.length} PREGUNTAS.`
+          : `SIN LÍMITE DE TIEMPO. ${questionList.length} PREGUNTAS.`}
       </Typography>
     );
   };
 
-  const handleOnClickContinueBtn = (questions) => {
-    setIsAnExam(true);
-    setSelectedQuestions(questions);
+  const handleOnClickContinueBtn = (exam) => {
+    setExamStartDate(new Date());
+    setSelectedExam(exam);
+    setSelectedQuestions(exam.questionList);
   };
 
   return (
@@ -42,12 +41,12 @@ const PracticeExams = (props) => {
             Exámenes disponibles
           </Typography>
         </div>
-        {exams.map(({ timeLimit, questions, description }) => (
+        {exams.map(({ duration, questionList, description, ...others }) => (
           <div className="practice-exams-card-container">
             <Card sx={{ minWidth: 660, height: 80, borderRadius: 5 }}>
               <div className="practice-exams-card-info-container">
                 <div className="practice-exams-card-texts-container">
-                  {handleTitle(timeLimit, questions)}
+                  {handleTitle(duration, questionList)}
                   <Typography classes={{ root: "description-text" }}>
                     {description}
                   </Typography>
@@ -56,7 +55,7 @@ const PracticeExams = (props) => {
                   <Button
                     variant="contained"
                     className="practice-exams-button"
-                    onClick={() => handleOnClickContinueBtn(questions)}
+                    onClick={() => handleOnClickContinueBtn({ duration, questionList, description, ...others })}
                   >
                     Comenzar
                   </Button>
